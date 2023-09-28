@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'jakarta';
+  src: url('/fonts/PlusJakartaSans.ttf')
+}
+
+* {
+  font-family: 'jakarta';
+}
+
+h1 {
+  font-size: 64px;
+  font-weight: 800;
+}
+
+h2 {
+  font-size: 48px;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+
+p {
+  font-size: 16px;
+}
