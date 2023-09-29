@@ -42,19 +42,28 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
+    id            String      @id @default(cuid())
     name          String?
-    email         String?   @unique
+    email         String?     @unique
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
-    telephoneNumber  Int?
-    bio               String?
-    role              UserRole?
-    education     String?
-    mentor        Mentor?  
-    student       Student? 
+    bio           String?
+    role          UserRole
+    education     Education[]
+    mentor        Mentor?
+    student       Student?
+    isOnboarded   Boolean?    @default(false)
+}
+
+model Education {
+    id     String @id @default(cuid())
+    userId String
+    school String
+    degree String
+    field  String
+    user   User   @relation(fields: [userId], references: [id])
 }
 
 model VerificationToken {
@@ -71,33 +80,33 @@ enum UserRole {
 }
 
 model Mentor {
-    userId      String        @id @unique
+    userId      String       @id @unique
     experiences Experience[]
-    expertise   String
-    link        String
-    user        User @relation(fields: [userId], references: [id])
-    bookings    Booking[] 
+    expertise   String?
+    cvUrl       String?
+    user        User         @relation(fields: [userId], references: [id])
+    bookings    Booking[]
 }
 
 model Student {
     userId       String        @id @unique
     testAttempts TestAttempt[]
-    user         User @relation(fields: [userId], references: [id])
-    bookings    Booking[] 
+    user         User          @relation(fields: [userId], references: [id])
+    bookings     Booking[]
 }
 
 model Experience {
-    id          String @id @default(cuid())
-    mentorId    String
+    id           String  @id @default(cuid())
+    mentorId     String
     organization String
-    title String
-    startPeriod String
-    endPeriod String
-    mentor    Mentor @relation(fields: [mentorId], references: [userId])
+    title        String
+    startPeriod  String
+    endPeriod    String?
+    mentor       Mentor  @relation(fields: [mentorId], references: [userId])
 }
 
 model TestCategory {
-    slug        String  @id
+    slug        String @id
     title       String
     description String
     resources   String
@@ -105,48 +114,48 @@ model TestCategory {
 }
 
 model Test {
-    id           String   @id @default(uuid())
-    name         String
-    description  String
-    instructions String
-    timer        Int    
+    id             String       @id @default(uuid())
+    name           String
+    description    String
+    instructions   String
+    timer          Int
     testCategoryId String
-    testCategory TestCategory @relation(fields: [testCategoryId], references: [slug])
-    questions    Question[]
+    testCategory   TestCategory @relation(fields: [testCategoryId], references: [slug])
+    questions      Question[]
 }
 
 model Question {
-    id          String           @id @default(cuid())
+    id          String            @id @default(cuid())
     title       String
-    embed       String?  
-    optionA    String  
-    optionB    String  
-    optionC   String  
-    optionD    String  
-    answer      Choice   
-    dateCreated DateTime @default(now())
-    test        Test             @relation(fields: [testId], references: [id])
+    embed       String?
+    optionA     String
+    optionB     String
+    optionC     String
+    optionD     String
+    answer      Choice
+    dateCreated DateTime          @default(now())
+    test        Test              @relation(fields: [testId], references: [id])
     testId      String
     attempts    QuestionAttempt[]
 }
 
 model TestAttempt {
-    id               String           @id @default(cuid())
+    id               String            @id @default(cuid())
     testld           String
     score            Int
     startTime        DateTime
-    student          Student          @relation(fields: [studentId], references: [userId])
+    student          Student           @relation(fields: [studentId], references: [userId])
     studentId        String
     questionAttempts QuestionAttempt[]
 }
 
 model QuestionAttempt {
-    id             String        @id @default(cuid())
-    choiced        Choice
-    question       Question      @relation(fields: [questionId], references: [id])
-    questionId     String
-    testAttempt    TestAttempt   @relation(fields: [testAttemptId], references: [id])
-    testAttemptId  String
+    id            String      @id @default(cuid())
+    choiced       Choice
+    question      Question    @relation(fields: [questionId], references: [id])
+    questionId    String
+    testAttempt   TestAttempt @relation(fields: [testAttemptId], references: [id])
+    testAttemptId String
 }
 
 enum Choice {
@@ -157,14 +166,14 @@ enum Choice {
 }
 
 model Booking {
-    id        String    @id @default(uuid())
+    id        String   @id @default(uuid())
     mentorId  String
-    menteeId  String    
+    menteeId  String
     startTime DateTime
-    link      String   
+    link      String
 
-    mentor    Mentor    @relation(fields: [mentorId], references: [userId])
-    mentee    Student   @relation(fields: [menteeId], references: [userId])
+    mentor Mentor  @relation(fields: [mentorId], references: [userId])
+    mentee Student @relation(fields: [menteeId], references: [userId])
 }
 
 model Event {
