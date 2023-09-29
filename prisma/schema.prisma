@@ -50,7 +50,7 @@ model User {
     accounts      Account[]
     sessions      Session[]
     bio           String?
-    role          UserRole
+    role          UserRole?
     education     Education[]
     mentor        Mentor?
     student       Student?
