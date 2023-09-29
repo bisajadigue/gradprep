@@ -28,22 +28,27 @@ export default function Home() {
       {/* Hero */}
       <main className="relative flex min-h-screen flex-col items-center justify-center">
         <div className="container flex flex-col items-center justify-center pt-36">
-          <div className=" rounded-full bg-[#5056ED]/[.42] w-[80vh] h-[80vh] absolute -top-48 -left-32 z-0"></div>
-          <div className=" rounded-full bg-[#111692]/[.42] w-[50vh] h-[50vh] absolute top-64 -left-40 z-0"></div>
-          <div className=" rounded-full bg-[#111692]/[.42] w-[40vh] h-[40vh] absolute bottom-12 -right-48 z-0"></div>
-          <div className=" rounded-full bg-[#946CE8]/[.62] w-[64vh] h-[64vh] absolute -bottom-56 -right-24 z-0"></div>
-          <h1>[H1] Persiapkan masa depanmu dalam waktu <span className=" text-primary italic">20 menit (use text-primary)</span>.</h1>
+          <div className=" absolute -left-32 -top-48 z-0 h-[80vh] w-[80vh] rounded-full bg-[#5056ED]/[.42]"></div>
+          <div className=" absolute -left-40 top-64 z-0 h-[50vh] w-[50vh] rounded-full bg-[#111692]/[.42]"></div>
+          <div className=" absolute -right-48 bottom-12 z-0 h-[40vh] w-[40vh] rounded-full bg-[#111692]/[.42]"></div>
+          <div className=" absolute -bottom-56 -right-24 z-0 h-[64vh] w-[64vh] rounded-full bg-[#946CE8]/[.62]"></div>
+          <h1>
+            [H1] Persiapkan masa depanmu dalam waktu{" "}
+            <span className=" italic text-primary">
+              20 menit (use text-primary)
+            </span>
+            .
+          </h1>
           <h2>[h2] This is heading 2.</h2>
           <h3>[h3] This is heading 3.</h3>
           <p>[p] This is normal paragraph text</p>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <p>
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-          </p>
+          <p>{hello.data ? hello.data.greeting : "Loading tRPC query..."}</p>
+          <AuthShowcase/>
           <div className="grid grid-cols-2 gap-4">
             <Input />
-            <SearchInput placeholder="This is a SearchInput" className="z-10"/>
+            <SearchInput placeholder="This is a SearchInput" className="z-10" />
           </div>
         </div>
       </main>
@@ -116,5 +121,30 @@ export default function Home() {
         </Button>
       </div>
     </>
+  );
+}
+
+function AuthShowcase() {
+  const { data: sessionData } = useSession();
+
+  const { data: secretMessage } = api.example.getSecretMessage.useQuery(
+    undefined, // no input
+    { enabled: sessionData?.user !== undefined },
+  );
+
+  return (
+    <div className="flex flex-row items-center justify-center gap-4">
+      <p className="text-center text-2xl text-white">
+        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
+        {secretMessage && <span> - {secretMessage}</span>}
+      </p>
+      <Button
+        onClick={sessionData ? () => void signOut() : () => void signIn()}
+        variant={"primary"}
+        size={"md"}
+      >
+        {sessionData ? "Sign out" : "Sign in"}
+      </Button>
+    </div>
   );
 }

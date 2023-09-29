@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'jakarta';
-  src: url('/fonts/PlusJakartaSans.ttf')
+  font-family: "jakarta";
+  src: url("/fonts/PlusJakartaSans.ttf");
 }
 
 * {
-  font-family: 'jakarta';
+  font-family: "jakarta";
 }
 
 h1 {
@@ -25,7 +25,6 @@ h3 {
   font-size: 28px;
   font-weight: 600;
 }
-
 
 p {
   font-size: 16px;

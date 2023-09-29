@@ -1,16 +1,19 @@
 ## Deploy for Local Development
 
 1. Install the required packages
+
 ```
 npm install
 ```
 
 2. Load Prisma schemas
+
 ```
 prisma generate
 ```
 
 3. Run
+
 ```
 npm run dev
 ```

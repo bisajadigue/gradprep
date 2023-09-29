@@ -1,3 +1,3 @@
 export interface NavbarProps {
-  theme?: "light" | "dark"
+  theme?: "light" | "dark";
 }
