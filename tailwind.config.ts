@@ -5,11 +5,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#6d00f9',
-        secondary: '#eae7fb'
+        primary: "#6d00f9",
+        secondary: "#eae7fb",
       },
       fontFamily: {
-        jakarta: 'jakarta'
+        jakarta: "jakarta",
       },
     },
   },

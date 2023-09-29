@@ -1,5 +1,5 @@
-import React from 'react'
-import { type ButtonProps } from './interface'
+import React from "react";
+import { type ButtonProps } from "./interface";
 
 export const Button: React.FC<ButtonProps> = ({
   className,
@@ -12,20 +12,22 @@ export const Button: React.FC<ButtonProps> = ({
   isLoading,
   type,
 }) => {
-
   return (
     <>
       <button
         onClick={onClick}
         disabled={disabled || isLoading}
         type={type}
-        className={`${className} inline-flex items-center px-[36px] py-[12px] relative bg-primary rounded-[15px] overflow-hidden active:bg-[#603994]`}>
-          <p className="
-            relative w-fit mt-[-1.00px] font-p-paragraph font-[number:var(--p-paragraph-font-weight)] text-white
-          ">
-            { children }
-          </p>
+        className={`${className} relative inline-flex items-center overflow-hidden rounded-[15px] bg-primary px-[36px] py-[12px] active:bg-[#603994]`}
+      >
+        <p
+          className="
+            font-p-paragraph relative mt-[-1.00px] w-fit font-[number:var(--p-paragraph-font-weight)] text-white
+          "
+        >
+          {children}
+        </p>
       </button>
     </>
-  )
-}
+  );
+};

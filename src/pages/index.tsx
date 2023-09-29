@@ -19,32 +19,44 @@ export default function Home() {
       </Head>
       <main className="relative flex min-h-screen flex-col items-center justify-center">
         <div className="container flex flex-col items-center justify-center pt-36">
-          <div className=" rounded-full bg-[#5056ED]/[.42] w-[80vh] h-[80vh] absolute -top-48 -left-32 z-0"></div>
-          <div className=" rounded-full bg-[#111692]/[.42] w-[50vh] h-[50vh] absolute top-64 -left-40 z-0"></div>
-          <div className=" rounded-full bg-[#111692]/[.42] w-[40vh] h-[40vh] absolute bottom-12 -right-48 z-0"></div>
-          <div className=" rounded-full bg-[#946CE8]/[.62] w-[64vh] h-[64vh] absolute -bottom-56 -right-24 z-0"></div>
-          <h1>[H1] Persiapkan masa depanmu dalam waktu <span className=" text-primary italic">20 menit (use text-primary)</span>.</h1>
+          <div className=" absolute -left-32 -top-48 z-0 h-[80vh] w-[80vh] rounded-full bg-[#5056ED]/[.42]"></div>
+          <div className=" absolute -left-40 top-64 z-0 h-[50vh] w-[50vh] rounded-full bg-[#111692]/[.42]"></div>
+          <div className=" absolute -right-48 bottom-12 z-0 h-[40vh] w-[40vh] rounded-full bg-[#111692]/[.42]"></div>
+          <div className=" absolute -bottom-56 -right-24 z-0 h-[64vh] w-[64vh] rounded-full bg-[#946CE8]/[.62]"></div>
+          <h1>
+            [H1] Persiapkan masa depanmu dalam waktu{" "}
+            <span className=" italic text-primary">
+              20 menit (use text-primary)
+            </span>
+            .
+          </h1>
           <h2>[h2] This is heading 2.</h2>
           <h3>[h3] This is heading 3.</h3>
           <p>[p] This is normal paragraph text</p>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <p>
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-          </p>
+          <p>{hello.data ? hello.data.greeting : "Loading tRPC query..."}</p>
           <AuthShowcase />
           <div className="grid grid-cols-2 gap-4">
             <Input />
-            <SearchInput placeholder="This is a SearchInput" className="z-10"/>
+            <SearchInput placeholder="This is a SearchInput" className="z-10" />
           </div>
         </div>
       </main>
-      <div className="relative h-[90vh] bg-primary justify-center flex flex-col items-center text-white">
+      <div className="relative flex h-[90vh] flex-col items-center justify-center bg-primary text-white">
         <h2>This is another section.</h2>
         <p>relative 90vh, padding-x 10vw </p>
-        <p className="container">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p className="container">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
       </div>
-      <div className="relative h-[90vh] bg-primary justify-center flex flex-col items-center text-white"></div>
+      <div className="relative flex h-[90vh] flex-col items-center justify-center bg-primary text-white"></div>
     </>
   );
 }
@@ -54,7 +66,7 @@ function AuthShowcase() {
 
   const { data: secretMessage } = api.example.getSecretMessage.useQuery(
     undefined, // no input
-    { enabled: sessionData?.user !== undefined }
+    { enabled: sessionData?.user !== undefined },
   );
 
   return (
@@ -64,8 +76,8 @@ function AuthShowcase() {
         {secretMessage && <span> - {secretMessage}</span>}
       </p>
       <Button
-        onClick={sessionData ? () => void signOut() : () => void signIn()} 
-        variant={"primary"} 
+        onClick={sessionData ? () => void signOut() : () => void signIn()}
+        variant={"primary"}
         size={"md"}
       >
         {sessionData ? "Sign out" : "Sign in"}

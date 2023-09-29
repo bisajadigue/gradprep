@@ -21,7 +21,7 @@ export default function useAccessToken(): UseAccessTokenFeatures {
     if (Cookies.get("access-token")) {
       return String(Cookies.get("access-token") ?? "");
     }
-    void router.push('/login');
+    void router.push("/login");
     return "";
   }, [router]);
   const getAccessToken = useCallback(() => {
@@ -44,6 +44,6 @@ export default function useAccessToken(): UseAccessTokenFeatures {
       getAccessToken,
       removeAccessToken,
       isRendered,
-    ]
+    ],
   );
 }
