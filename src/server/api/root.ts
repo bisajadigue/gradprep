@@ -1,6 +1,7 @@
 import { exampleRouter } from "@/server/api/routers/example";
 import { createTRPCRouter } from "@/server/api/trpc";
 import { userDataRouter } from "@/server/api/routers/userData";
+import { bookingRouter } from "./routers/booking";
 
 /**
  * This is the primary router for your server.
@@ -9,6 +10,7 @@ import { userDataRouter } from "@/server/api/routers/userData";
  */
 export const appRouter = createTRPCRouter({
   userData: userDataRouter,
+  booking: bookingRouter,
   example: exampleRouter,
 });
 
