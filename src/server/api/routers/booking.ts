@@ -34,6 +34,7 @@ export const bookingRouter = createTRPCRouter({
           data: {
             mentorId: input.mentorId,
             menteeId: input.studentId,
+            link: mentor.calendlyUrl,
             startTime: String(Date.now()),
           },
         });
@@ -65,6 +66,16 @@ export const bookingRouter = createTRPCRouter({
     )
     .query(async ({ input, ctx }) => {
       return ctx.db.booking.findMany({ where: { menteeId: input.studentId } });
+    }),
+
+  getBookingById: publicProcedure
+    .input(
+      z.object({
+        bookingId: z.string(),
+      }),
+    )
+    .query(async ({ input, ctx }) => {
+      return ctx.db.booking.findUnique({ where: { id: input.bookingId } });
     }),
 
   approveBooking: publicProcedure
