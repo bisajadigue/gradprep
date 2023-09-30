@@ -1,1 +1,1 @@
-export const VAR_NAME = ''
+export const VAR_NAME = "";

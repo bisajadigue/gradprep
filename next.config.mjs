@@ -18,8 +18,8 @@ const config = {
     defaultLocale: "en",
   },
   images: {
-    domains: ["placekitten.com", "unsplash.com"]
-  }
+    domains: ["placekitten.com", "unsplash.com"],
+  },
 };
 
 export default config;
