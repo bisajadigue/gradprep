@@ -8,10 +8,10 @@ import { SearchInput } from "@/components/elements/Search";
 import { Input } from "@/components/elements/Input";
 
 import Lottie from "lottie-react";
-import Books from "../../public/assets/lottie/books-1.json"
-import Connect from "../../public/assets/lottie/connect.json"
-import Info from "../../public/assets/lottie/info.json"
-import Quiz from "../../public/assets/lottie/quiz.json"
+import Books from "../../public/assets/lottie/books-1.json";
+import Connect from "../../public/assets/lottie/connect.json";
+import Info from "../../public/assets/lottie/info.json";
+import Quiz from "../../public/assets/lottie/quiz.json";
 import { RiArrowLeftCircleFill, RiArrowRightCircleFill } from "react-icons/ri";
 
 export default function Home() {
@@ -45,7 +45,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center gap-2">
           <p>{hello.data ? hello.data.greeting : "Loading tRPC query..."}</p>
-          <AuthShowcase/>
+          <AuthShowcase />
           <div className="grid grid-cols-2 gap-4">
             <Input />
             <SearchInput placeholder="This is a SearchInput" className="z-10" />
@@ -54,38 +54,57 @@ export default function Home() {
       </main>
 
       {/* Section 2 */}
-      <div className="relative h-[90vh] bg-primary justify-center flex flex-col items-center text-white">
+      <div className="relative flex h-[90vh] flex-col items-center justify-center bg-primary text-white">
         <div className="container flex flex-row">
           <Lottie animationData={Books} />
-          <div className="max-w-[60%] flex flex-col justify-center">
+          <div className="flex max-w-[60%] flex-col justify-center">
             <h2>Apakah kamu siap menghadapi tantangan masa depan?</h2>
-            <p>Untuk mematangkan diri menuju pendidikan pascasarjana, kamu dapat melakukan seluruh persiapanmu di GradPrep! Platform kami adalah <i>one-stop solution</i> untuk meraih cita-cita masa depanmu.</p>
+            <p>
+              Untuk mematangkan diri menuju pendidikan pascasarjana, kamu dapat
+              melakukan seluruh persiapanmu di GradPrep! Platform kami adalah{" "}
+              <i>one-stop solution</i> untuk meraih cita-cita masa depanmu.
+            </p>
           </div>
         </div>
       </div>
 
       {/* Section 3 */}
-      <div className="relative h-[90vh] bg-white justify-center flex flex-col items-center">
-        <h2 className="container text-center mb-12">Semua kebutuhanmu di satu platform.</h2>
+      <div className="relative flex h-[90vh] flex-col items-center justify-center bg-white">
+        <h2 className="container mb-12 text-center">
+          Semua kebutuhanmu di satu platform.
+        </h2>
         <div className="container flex flex-row justify-center gap-x-12">
-            <div className="w-[18vw]">
-              <div className="w-[50%] mx-auto"><Lottie animationData={Quiz} /></div>
-              <p>Uji kemampuanmu dengan <u>Mock Test</u> !</p>
+          <div className="w-[18vw]">
+            <div className="mx-auto w-[50%]">
+              <Lottie animationData={Quiz} />
             </div>
-            <div className="w-[18vw]">
-              <div className="w-[50%] mx-auto"><Lottie animationData={Info} /></div>
-              <p>Temukan semua informasi terkait <u>beasiswa dan program S2/S3</u> yang kamu butuhkan.</p>
+            <p>
+              Uji kemampuanmu dengan <u>Mock Test</u> !
+            </p>
+          </div>
+          <div className="w-[18vw]">
+            <div className="mx-auto w-[50%]">
+              <Lottie animationData={Info} />
             </div>
-            <div className="w-[18vw]">
-              <div className="w-[50%] mx-auto"><Lottie animationData={Connect} /></div>
-              <p>Butuh bantuan? Tanyakan ke <u>Mentor</u> kami.</p>
+            <p>
+              Temukan semua informasi terkait <u>beasiswa dan program S2/S3</u>{" "}
+              yang kamu butuhkan.
+            </p>
+          </div>
+          <div className="w-[18vw]">
+            <div className="mx-auto w-[50%]">
+              <Lottie animationData={Connect} />
             </div>
+            <p>
+              Butuh bantuan? Tanyakan ke <u>Mentor</u> kami.
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Section 4 */}
-      <div className="relative h-[90vh] bg-primary justify-start flex flex-col items-center text-white">
-        <div className="container relative -top-[10vh] h-[20vh] bg-white text-black shadow-lg shadow-gray-700 justify-center flex flex-col items-center rounded-[15px] p-20">
+      <div className="relative flex h-[90vh] flex-col items-center justify-start bg-primary text-white">
+        <div className="container relative -top-[10vh] flex h-[20vh] flex-col items-center justify-center rounded-[15px] bg-white p-20 text-black shadow-lg shadow-gray-700">
           <h2>Awooga</h2>
           <div className="flex flex-row justify-around gap-x-2">
             <p>carousel item</p>
@@ -97,23 +116,32 @@ export default function Home() {
         </div>
         <h2 className="container text-center">Kata Mereka</h2>
         <div className="container flex flex-row justify-center gap-x-12">
-            <button className="active:scale-[0.85] transition-all">
-              <RiArrowLeftCircleFill size={48}/>
-            </button>
-            <div className="w-[30vw] text-center">
-              <div className="w-[50%] mx-auto"><Lottie animationData={Info} /></div>
-              <p className="font-bold">I really like it, Very Good Platform</p>
-              <p>Take the edit distance calculated between the previous substrings and increment it only if their currently processing chars differ (hypothetical necessary substitution).</p>
+          <button className="transition-all active:scale-[0.85]">
+            <RiArrowLeftCircleFill size={48} />
+          </button>
+          <div className="w-[30vw] text-center">
+            <div className="mx-auto w-[50%]">
+              <Lottie animationData={Info} />
             </div>
-            <button className="active:scale-[0.85] transition-all">
-              <RiArrowRightCircleFill size={48}/>
-            </button>
+            <p className="font-bold">I really like it, Very Good Platform</p>
+            <p>
+              Take the edit distance calculated between the previous substrings
+              and increment it only if their currently processing chars differ
+              (hypothetical necessary substitution).
+            </p>
+          </div>
+          <button className="transition-all active:scale-[0.85]">
+            <RiArrowRightCircleFill size={48} />
+          </button>
         </div>
       </div>
 
-      <div className="relative h-[90vh] bg-white justify-center flex flex-col items-center">
-        <div className="container text-center mb-12">
-          <h2>Coba <span className="font-bold underline italic">sekarang juga</span>.</h2>
+      <div className="relative flex h-[90vh] flex-col items-center justify-center bg-white">
+        <div className="container mb-12 text-center">
+          <h2>
+            Coba{" "}
+            <span className="font-bold italic underline">sekarang juga</span>.
+          </h2>
           <p>Gada salahnya kan coba-coba?</p>
         </div>
         <Button variant={"primary"} size={"md"}>

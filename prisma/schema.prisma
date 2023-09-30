@@ -84,6 +84,7 @@ model Mentor {
     experiences Experience[]
     expertise   String?
     cvUrl       String?
+    calendlyUrl String?
     user        User         @relation(fields: [userId], references: [id])
     bookings    Booking[]
 }
@@ -166,14 +167,14 @@ enum Choice {
 }
 
 model Booking {
-    id        String   @id @default(uuid())
-    mentorId  String
-    menteeId  String
-    startTime DateTime
-    link      String
-
-    mentor Mentor  @relation(fields: [mentorId], references: [userId])
-    mentee Student @relation(fields: [menteeId], references: [userId])
+    id         String   @id @default(uuid())
+    mentorId   String
+    menteeId   String
+    startTime  DateTime
+    link       String?
+    isApproved Boolean? @default(false)
+    mentor     Mentor   @relation(fields: [mentorId], references: [userId])
+    mentee     Student  @relation(fields: [menteeId], references: [userId])
 }
 
 model Event {
