@@ -7,27 +7,32 @@ export const ProgramModule: React.FC = () => {
   return (
     <>
       {/* Hero */}
-      <div className="relative flex h-[74vh] flex-col items-center justify-center bg-primary text-white">
-        <div className="container flex flex-row">
-          <div className="flex max-w-[60%] flex-col justify-center">
-            <div className=" absolute -left-32 -top-48 z-0 h-[80vh] w-[80vh] rounded-full bg-[#5056ED]/[.42]"></div>
+      <div className="relative flex h-[89.5vh] flex-col items-center justify-center bg-primary text-white md:flex-row">
+        <div className="container flex flex-col items-center justify-center md:flex-row lg:flex-row">
+          <div className="px-3 text-center ">
+            {/* <div className=" absolute -left-32 -top-48 z-0 h-[80vh] w-[80vh] rounded-full bg-[#5056ED]/[.42]"></div>
             <div className=" absolute -left-40 top-64 z-0 h-[50vh] w-[50vh] rounded-full bg-[#111692]/[.42]"></div>
             <div className=" absolute -right-48 bottom-12 z-0 h-[40vh] w-[40vh] rounded-full bg-[#111692]/[.42]"></div>
-            <div className=" absolute -bottom-56 -right-24 z-0 h-[64vh] w-[64vh] rounded-full bg-[#946CE8]/[.62]"></div>
-            <h2>Temukan ratusan info beasiswa terlengkap dan terbaru!</h2>
-            <p>
+            <div className=" absolute -bottom-56 -right-24 z-0 h-[64vh] w-[64vh] rounded-full bg-[#946CE8]/[.62]"></div> */}
+            <h2 className="text-2xl">
+              Temukan ratusan info beasiswa terlengkap dan terbaru!
+            </h2>
+            <p className="mt-3 text-base">
               Temukan ratusan info beasiswa terlengkap & terbaru mulai dari
-              beasiswa partial hingga fully funded di dalam dan luat negeri.
+              beasiswa partial hingga fully funded di dalam dan luar negeri.
             </p>
           </div>
-          <Lottie className="-mb-60" animationData={Programs} />
+          <Lottie
+            className="-mb-48 w-80 md:w-[500px] lg:w-[600px]"
+            animationData={Programs}
+          />
         </div>
       </div>
+      <div className="my-10 flex justify-center px-3">
+        <SearchInput className="w-10/12" />
+      </div>
 
-      <div className=" bg-white px-20">
-        <div className="my-10">
-          <SearchInput className="w-1/2" />
-        </div>
+      <div className="mb-20 flex flex-wrap justify-center bg-white px-2">
         <ProgramCard
           id={0}
           title={""}
