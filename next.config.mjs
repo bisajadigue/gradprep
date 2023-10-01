@@ -18,7 +18,7 @@ const config = {
     defaultLocale: "en",
   },
   images: {
-    domains: ["placekitten.com", "unsplash.com"],
+    domains: ["placekitten.com", "unsplash.com", "lh3.googleusercontent.com"],
   },
 };
 

@@ -19,7 +19,7 @@ export default function MentorsHomePage() {
           <Lottie animationData={Help} loop={false}/>
         </div>
         <div className="w-full h-full mx-auto container flex flex-col items-start justify-start gap-y-8 pt-36">
-          <h2>Temukan mentor yang tepat untuk pendidikanmu!</h2>
+          <h3 className="md:max-w-[85%]">Temukan mentor yang tepat untuk pendidikanmu!</h3>
           <SearchInput placeholder="Cari mentor berdasarkan kata kunci  ..." className="max-w-[60%]"/>
         </div>
       </div>
