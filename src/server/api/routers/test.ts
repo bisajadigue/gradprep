@@ -52,7 +52,7 @@ export const testRouter = createTRPCRouter({
 
   getTestById: publicProcedure
     .input(z.object({ testId: z.string() }))
-    .query(async ({ input , ctx }) => {
+    .query(async ({ input, ctx }) => {
       if (!ctx.session || !ctx.session.user) {
         return ctx.db.test.findUnique({
           where: { id: input.testId },
@@ -107,7 +107,10 @@ export const testRouter = createTRPCRouter({
         const currentUserId = ctx.session.user.id;
         userAttempt = await ctx.db.questionAttempt.findFirst({
           where: {
-            AND: [{ questionId: input.questionId }, { studentId: currentUserId }],
+            AND: [
+              { questionId: input.questionId },
+              { studentId: currentUserId },
+            ],
           },
           orderBy: { id: "desc" },
         });

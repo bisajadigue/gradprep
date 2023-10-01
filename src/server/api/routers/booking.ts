@@ -29,7 +29,7 @@ export const bookingRouter = createTRPCRouter({
           return { error: "Mentor or student not found." };
         }
 
-        // Create a new booking 
+        // Create a new booking
         const booking = await ctx.db.booking.create({
           data: {
             mentorId: input.mentorId,

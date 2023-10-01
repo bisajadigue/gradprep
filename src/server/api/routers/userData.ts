@@ -211,68 +211,67 @@ export const userDataRouter = createTRPCRouter({
       return user;
     }),
 
-    getCurrentUserInformation: publicProcedure
-    .query(async ({ ctx }) => {
-      if (!ctx.session || !ctx.session.user) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "User not authenticated",
-          cause: null,
-        });
-      }
-
-      const currentUserId = ctx.session.user.id;
-
-      const user = await ctx.db.user.findUnique({
-        where: {
-          id: currentUserId,
-        },
-        include: {
-          education: true,
-          mentor: {
-            include: {
-              experiences: true,
-            },
-          },
-          student: {
-            include: {
-              testAttempts: true,
-            },
-          },
-        },
+  getCurrentUserInformation: publicProcedure.query(async ({ ctx }) => {
+    if (!ctx.session || !ctx.session.user) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "User not authenticated",
+        cause: null,
       });
+    }
 
-      if (!user) {
-        throw new TRPCError({
-          code: "BAD_REQUEST",
-          message: "User not found",
-          cause: null,
-        });
-      }
+    const currentUserId = ctx.session.user.id;
 
-      if (user.role === "MENTOR" && user.mentor) {
-        return {
-          ...user,
-          expertise: user.mentor.expertise,
-          cvUrl: user.mentor.cvUrl,
-          calendlyUrl: user.mentor.calendlyUrl,
-          experiences: user.mentor.experiences,
-          mentor: undefined,
-          student: undefined,
-        };
-      }
+    const user = await ctx.db.user.findUnique({
+      where: {
+        id: currentUserId,
+      },
+      include: {
+        education: true,
+        mentor: {
+          include: {
+            experiences: true,
+          },
+        },
+        student: {
+          include: {
+            testAttempts: true,
+          },
+        },
+      },
+    });
 
-      if (user.role === "STUDENT" && user.student) {
-        return {
-          ...user,
-          testAttempts: user.student.testAttempts,
-          mentor: undefined,
-          student: undefined,
-        };
-      }
+    if (!user) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "User not found",
+        cause: null,
+      });
+    }
 
-      return user;
-    }),
+    if (user.role === "MENTOR" && user.mentor) {
+      return {
+        ...user,
+        expertise: user.mentor.expertise,
+        cvUrl: user.mentor.cvUrl,
+        calendlyUrl: user.mentor.calendlyUrl,
+        experiences: user.mentor.experiences,
+        mentor: undefined,
+        student: undefined,
+      };
+    }
+
+    if (user.role === "STUDENT" && user.student) {
+      return {
+        ...user,
+        testAttempts: user.student.testAttempts,
+        mentor: undefined,
+        student: undefined,
+      };
+    }
+
+    return user;
+  }),
 
   check: publicProcedure
     .input(z.object({ email: z.string() }))
