@@ -32,7 +32,7 @@ export const ProgramCard: React.FC<IProgram> = ({
 
         <h3 className="text-xl font-extrabold lg:text-3xl">Beasiswa LPDP</h3>
         <h3 className="text-lg font-thin lg:text-2xl">Kemendikbud</h3>
-        <div className="bg-lightpurple w-full rounded-xl p-5">
+        <div className="bg-lightpurple my-3 w-full rounded-xl p-5">
           <div className="flex flex-row gap-7 text-sm lg:text-lg">
             <p>Mulai Registrasi</p>
             <p>12 Juni 2025, 00.30 WIB</p>
