@@ -1,7 +1,8 @@
 import Lottie from "lottie-react";
 import Programs from "../../../../public/assets/lottie/program.json";
 import { ProgramCard } from "@/components/elements/Cards/ProgramCard";
-import { SearchInput } from "@/components/elements";
+import { Button, SearchInput } from "@/components/elements";
+import { RiFilter3Line } from "react-icons/ri";
 
 export const ProgramModule: React.FC = () => {
   return (
@@ -28,8 +29,23 @@ export const ProgramModule: React.FC = () => {
           />
         </div>
       </div>
-      <div className="my-10 flex justify-center px-3">
-        <SearchInput className="w-10/12" />
+      <div className="my-10 flex flex-row items-center justify-center gap-5 px-32">
+        <SearchInput className="4/5 w-full" />
+        <Button
+          className=" w-1/5 border-2  border-solid border-primary bg-white text-primary"
+          variant={"primary"}
+          size={"md"}
+        >
+          {" "}
+          <div className="flex-between flex items-center justify-center">
+            <p className=" text-black">Tambah Filter</p>
+            <RiFilter3Line
+              color="black"
+              size={24}
+              className="my-auto active:scale-[80%]"
+            />
+          </div>
+        </Button>
       </div>
 
       <div className="mb-20 flex flex-row items-center justify-center gap-16 bg-white px-2">
