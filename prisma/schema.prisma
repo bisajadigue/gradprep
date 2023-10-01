@@ -76,7 +76,7 @@ model VerificationToken {
 
 enum UserRole {
     MENTOR
-    USER
+    STUDENT
 }
 
 model Mentor {
@@ -90,10 +90,11 @@ model Mentor {
 }
 
 model Student {
-    userId       String        @id @unique
-    testAttempts TestAttempt[]
-    user         User          @relation(fields: [userId], references: [id])
-    bookings     Booking[]
+    userId          String            @id @unique
+    testAttempts    TestAttempt[]
+    user            User              @relation(fields: [userId], references: [id])
+    bookings        Booking[]
+    QuestionAttempt QuestionAttempt[]
 }
 
 model Experience {
@@ -115,39 +116,40 @@ model TestCategory {
 }
 
 model Test {
-    id             String       @id @default(uuid())
+    id             String        @id @default(uuid())
     name           String
     description    String
     instructions   String
     timer          Int
     testCategoryId String
-    testCategory   TestCategory @relation(fields: [testCategoryId], references: [slug])
+    testCategory   TestCategory  @relation(fields: [testCategoryId], references: [slug])
     questions      Question[]
+    attempts       TestAttempt[]
 }
 
 model Question {
-    id          String            @id @default(cuid())
-    title       String
-    embed       String?
-    optionA     String
-    optionB     String
-    optionC     String
-    optionD     String
-    answer      Choice
-    dateCreated DateTime          @default(now())
-    test        Test              @relation(fields: [testId], references: [id])
-    testId      String
-    attempts    QuestionAttempt[]
+    id       String            @id @default(cuid())
+    title    String
+    embed    String?
+    optionA  String
+    optionB  String
+    optionC  String
+    optionD  String
+    answer   Choice
+    test     Test              @relation(fields: [testId], references: [id])
+    testId   String
+    attempts QuestionAttempt[]
 }
 
 model TestAttempt {
     id               String            @id @default(cuid())
-    testld           String
-    score            Int
-    startTime        DateTime
-    student          Student           @relation(fields: [studentId], references: [userId])
+    testId           String
     studentId        String
+    score            Int               @default(0)
+    startTime        DateTime          @default(now())
     questionAttempts QuestionAttempt[]
+    student          Student           @relation(fields: [studentId], references: [userId])
+    test             Test              @relation(fields: [testId], references: [id])
 }
 
 model QuestionAttempt {
@@ -157,6 +159,8 @@ model QuestionAttempt {
     questionId    String
     testAttempt   TestAttempt @relation(fields: [testAttemptId], references: [id])
     testAttemptId String
+    studentId     String
+    student       Student     @relation(fields: [studentId], references: [userId])
 }
 
 enum Choice {

@@ -63,7 +63,6 @@ export const userDataRouter = createTRPCRouter({
         bio: input.bio,
         role: input.role,
         cvUrl: input.cvUrl,
-        calendlyUrl: input.calendlyUrl,
         isOnboarded: true,
       };
 
@@ -91,7 +90,9 @@ export const userDataRouter = createTRPCRouter({
         if (input.expertise) {
           mentorData.expertise = input.expertise;
         }
-
+        if (input.calendlyUrl) {
+          mentorData.calendlyUrl = input.calendlyUrl;
+        }
         if (input.cvUrl) {
           const uploadedUrl = await utapi.uploadFiles(input.cvUrl);
 
@@ -141,6 +142,18 @@ export const userDataRouter = createTRPCRouter({
         }
       }
 
+      let studentData: any = {};
+      if (input.role === "STUDENT") {
+        await ctx.db.student.upsert({
+          where: { userId: currentUserId },
+          update: studentData,
+          create: {
+            ...studentData,
+            userId: currentUserId,
+          },
+        });
+      }
+
       return updatedUser;
     }),
 
@@ -152,6 +165,7 @@ export const userDataRouter = createTRPCRouter({
           id: id,
         },
         include: {
+          education: true,
           mentor: {
             include: {
               experiences: true,
@@ -173,8 +187,91 @@ export const userDataRouter = createTRPCRouter({
         });
       }
 
+      if (user.role === "MENTOR" && user.mentor) {
+        return {
+          ...user,
+          expertise: user.mentor.expertise,
+          cvUrl: user.mentor.cvUrl,
+          calendlyUrl: user.mentor.calendlyUrl,
+          experiences: user.mentor.experiences,
+          mentor: undefined,
+          student: undefined,
+        };
+      }
+
+      if (user.role === "STUDENT" && user.student) {
+        return {
+          ...user,
+          testAttempts: user.student.testAttempts,
+          mentor: undefined,
+          student: undefined,
+        };
+      }
+
       return user;
     }),
+
+  getCurrentUserInformation: publicProcedure.query(async ({ ctx }) => {
+    if (!ctx.session || !ctx.session.user) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "User not authenticated",
+        cause: null,
+      });
+    }
+
+    const currentUserId = ctx.session.user.id;
+
+    const user = await ctx.db.user.findUnique({
+      where: {
+        id: currentUserId,
+      },
+      include: {
+        education: true,
+        mentor: {
+          include: {
+            experiences: true,
+          },
+        },
+        student: {
+          include: {
+            testAttempts: true,
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "User not found",
+        cause: null,
+      });
+    }
+
+    if (user.role === "MENTOR" && user.mentor) {
+      return {
+        ...user,
+        expertise: user.mentor.expertise,
+        cvUrl: user.mentor.cvUrl,
+        calendlyUrl: user.mentor.calendlyUrl,
+        experiences: user.mentor.experiences,
+        mentor: undefined,
+        student: undefined,
+      };
+    }
+
+    if (user.role === "STUDENT" && user.student) {
+      return {
+        ...user,
+        testAttempts: user.student.testAttempts,
+        mentor: undefined,
+        student: undefined,
+      };
+    }
+
+    return user;
+  }),
 
   check: publicProcedure
     .input(z.object({ email: z.string() }))
