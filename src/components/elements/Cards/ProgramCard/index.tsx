@@ -18,6 +18,7 @@ export const ProgramCard: React.FC<IProgram> = ({
   return (
     <>
       <GenericCard
+        // className={`${className} flex w-[300px] cursor-pointer flex-col hover:-translate-y-[0.5rem] hover:shadow-xl`}
         className={`${className} flex w-[300px] transform flex-col transition-all duration-500 hover:scale-105`}
       >
         <div className="flex flex-row items-center gap-3">
