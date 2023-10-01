@@ -8,7 +8,7 @@ import {
 import { TRPCError } from "@trpc/server";
 
 export const bookingRouter = createTRPCRouter({
-  booking: publicProcedure
+  booking: protectedProcedure
     .input(
       z.object({
         mentorId: z.string(),
@@ -26,16 +26,16 @@ export const bookingRouter = createTRPCRouter({
         });
 
         if (!mentor || !mentee) {
-          return { error: "Mentor or mentee not found." };
+          return { error: "Mentor or student not found." };
         }
 
-        // Create a new booking
+        // Create a new booking 
         const booking = await ctx.db.booking.create({
           data: {
             mentorId: input.mentorId,
             menteeId: input.studentId,
             link: mentor.calendlyUrl,
-            startTime: String(Date.now()),
+            startTime: String(new Date().toISOString()),
           },
         });
 
@@ -48,7 +48,7 @@ export const bookingRouter = createTRPCRouter({
       }
     }),
 
-  getAllBookingMentor: publicProcedure
+  getAllBookingMentor: protectedProcedure
     .input(
       z.object({
         mentorId: z.string(),
@@ -58,7 +58,7 @@ export const bookingRouter = createTRPCRouter({
       return ctx.db.booking.findMany({ where: { mentorId: input.mentorId } });
     }),
 
-  getAllBookingStudent: publicProcedure
+  getAllBookingStudent: protectedProcedure
     .input(
       z.object({
         studentId: z.string(),
@@ -68,7 +68,7 @@ export const bookingRouter = createTRPCRouter({
       return ctx.db.booking.findMany({ where: { menteeId: input.studentId } });
     }),
 
-  getBookingById: publicProcedure
+  getBookingById: protectedProcedure
     .input(
       z.object({
         bookingId: z.string(),
@@ -78,7 +78,7 @@ export const bookingRouter = createTRPCRouter({
       return ctx.db.booking.findUnique({ where: { id: input.bookingId } });
     }),
 
-  approveBooking: publicProcedure
+  approveBooking: protectedProcedure
     .input(
       z.object({
         bookingId: z.string(),
