@@ -12,6 +12,93 @@ export const testRouter = createTRPCRouter({
     return ctx.db.testCategory.findMany();
   }),
 
+  getTestCategoryById: publicProcedure
+    .input(z.object({ slug: z.string() }))
+    .query(async ({ input: { slug }, ctx }) => {
+      return ctx.db.testCategory.findUnique({
+        where: { slug: slug },
+        include: {
+          tests: true,
+        },
+      });
+    }),
+
+  getTestById: publicProcedure
+    .input(z.object({ testId: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const test = await ctx.db.test.findUnique({
+        where: { id: input.testId },
+      });
+
+      if (!ctx.session || !ctx.session.user) {
+        return {
+          test: test,
+          testAttempt: null,
+          isAttempted: false,
+        };
+      }
+
+      const currentUserId = ctx.session.user.id;
+
+      const testAttempt = await ctx.db.testAttempt.findFirst({
+        where: {
+          AND: [{ testId: input.testId }, { studentId: currentUserId }],
+        },
+      });
+
+      if (Boolean(testAttempt)) {
+        return {
+          test: test,
+          testAttempt: testAttempt,
+          isAttempted: Boolean(testAttempt),
+        };
+      } else {
+        return {
+          test: test,
+          testAttempt: null,
+          isAttempted: Boolean(testAttempt),
+        };
+      }
+    }),
+
+  getAllQuestionFromTestId: publicProcedure
+    .input(z.object({ testId: z.string() }))
+    .query(async ({ input: { testId }, ctx }) => {
+      return await ctx.db.question.findMany({
+        where: { testId: testId },
+      });
+    }),
+
+  getQuestionById: publicProcedure
+    .input(z.object({ questionId: z.string() }))
+    .query(async ({ input, ctx }) => {
+      // Fetch the question by its ID
+      const question = await ctx.db.question.findUnique({
+        where: { id: input.questionId },
+      });
+
+      let questionAttempt = null;
+
+      // If the user is authenticated, check if they've previously attempted the question
+      if (ctx.session && ctx.session.user) {
+        const currentUserId = ctx.session.user.id;
+        questionAttempt = await ctx.db.questionAttempt.findFirst({
+          where: {
+            AND: [
+              { questionId: input.questionId },
+              { studentId: currentUserId },
+            ],
+          },
+          orderBy: { id: "desc" },
+        });
+      }
+
+      return {
+        question: question,
+        questionAttempt: questionAttempt,
+      };
+    }),
+
   createTestForTestCategory: publicProcedure
     .input(
       z.object({
@@ -37,89 +124,6 @@ export const testRouter = createTRPCRouter({
           });
         }
       }
-    }),
-
-  getTestCategoryById: publicProcedure
-    .input(z.object({ slug: z.string() }))
-    .query(async ({ input: { slug }, ctx }) => {
-      return ctx.db.testCategory.findUnique({
-        where: { slug: slug },
-        include: {
-          tests: true,
-        },
-      });
-    }),
-
-  getTestById: publicProcedure
-    .input(z.object({ testId: z.string() }))
-    .query(async ({ input, ctx }) => {
-      if (!ctx.session || !ctx.session.user) {
-        return ctx.db.test.findUnique({
-          where: { id: input.testId },
-        });
-      }
-
-      const currentUserId = ctx.session.user.id;
-
-      const test = await ctx.db.test.findUnique({
-        where: { id: input.testId },
-      });
-
-      const testAttempt = await ctx.db.testAttempt.findFirst({
-        where: {
-          AND: [{ testId: input.testId }, { studentId: currentUserId }],
-        },
-      });
-
-      if (Boolean(testAttempt)) {
-        return {
-          ...testAttempt,
-          isAttempted: Boolean(testAttempt),
-        };
-      } else {
-        return {
-          ...test,
-          isAttempted: Boolean(testAttempt),
-        };
-      }
-    }),
-
-  getAllQuestionFromTestId: publicProcedure
-    .input(z.object({ testId: z.string() }))
-    .query(async ({ input: { testId }, ctx }) => {
-      return await ctx.db.question.findMany({
-        where: { testId: testId },
-      });
-    }),
-
-  getQuestionById: publicProcedure
-    .input(z.object({ questionId: z.string() }))
-    .query(async ({ input, ctx }) => {
-      // Fetch the question by its ID
-      const question = await ctx.db.question.findUnique({
-        where: { id: input.questionId },
-      });
-
-      let userAttempt = null;
-
-      // If the user is authenticated, check if they've previously attempted the question
-      if (ctx.session && ctx.session.user) {
-        const currentUserId = ctx.session.user.id;
-        userAttempt = await ctx.db.questionAttempt.findFirst({
-          where: {
-            AND: [
-              { questionId: input.questionId },
-              { studentId: currentUserId },
-            ],
-          },
-          orderBy: { id: "desc" },
-        });
-      }
-
-      return {
-        question: question,
-        userAttempt: userAttempt,
-      };
     }),
 
   createQuestionForTest: publicProcedure
@@ -183,6 +187,17 @@ export const testRouter = createTRPCRouter({
         throw new TRPCError({
           code: "CONFLICT",
           message: "User has already attempted this test.",
+        });
+      }
+
+      const test = await ctx.db.test.findUnique({
+        where: { id: input.testId },
+      });
+
+      if (!test) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Test not found.",
         });
       }
 

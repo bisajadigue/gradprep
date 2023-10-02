@@ -3,5 +3,5 @@ export default function MentorDetailPage() {
     <>
       <p>detail here</p>
     </>
-  )
+  );
 }

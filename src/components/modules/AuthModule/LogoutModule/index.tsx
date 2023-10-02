@@ -3,5 +3,5 @@ export default function LogoutPage() {
     <>
       <p>log out here</p>
     </>
-  )
+  );
 }

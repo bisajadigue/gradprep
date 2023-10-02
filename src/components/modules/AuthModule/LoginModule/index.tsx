@@ -3,5 +3,5 @@ export default function LoginPage() {
     <>
       <p>login here</p>
     </>
-  )
+  );
 }

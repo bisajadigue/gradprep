@@ -3,5 +3,5 @@ export default function ViewProfilePage() {
     <>
       <p>user self profile here</p>
     </>
-  )
+  );
 }
