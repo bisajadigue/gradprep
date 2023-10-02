@@ -12,19 +12,15 @@ export default function MentorsHomePage() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* Hero */}
-      <main className="relative flex min-h-screen flex-col items-center justify-start">
-        <div className="relative h-[60vh] w-full bg-primary text-white">
-          <div className="absolute bottom-0 right-[5vw] w-[20vw]">
-            <Lottie animationData={Help} loop={false} />
-          </div>
-          <div className="container mx-auto flex h-full w-full flex-col items-start justify-start gap-y-8 pt-36">
-            <h2>Temukan mentor yang tepat untuk pendidikanmu!</h2>
-            <SearchInput
-              placeholder="Cari mentor berdasarkan kata kunci  ..."
-              className="max-w-[60%]"
-            />
-          </div>
+    {/* Hero */}
+    <main className="relative flex min-h-screen flex-col items-center justify-start">
+      <div className="relative w-full h-[60vh] text-white bg-primary">
+        <div className="absolute bottom-0 right-[5vw] w-[20vw]">
+          <Lottie animationData={Help} loop={false}/>
+        </div>
+        <div className="w-full h-full mx-auto container flex flex-col items-start justify-start gap-y-8 pt-36">
+          <h3 className="md:max-w-[85%]">Temukan mentor yang tepat untuk pendidikanmu!</h3>
+          <SearchInput placeholder="Cari mentor berdasarkan kata kunci  ..." className="max-w-[60%]"/>
         </div>
         <div className="container relative min-h-[90vh] w-full bg-white py-8">
           <MentorCard
