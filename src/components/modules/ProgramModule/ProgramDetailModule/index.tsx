@@ -16,11 +16,11 @@ export const ProgramDetailModule: React.FC = () => {
             <div className=" absolute -left-40 top-64 z-0 h-[50vh] w-[50vh] rounded-full bg-[#111692]/[.42]"></div>
             <div className=" absolute -right-48 bottom-12 z-0 h-[40vh] w-[40vh] rounded-full bg-[#111692]/[.42]"></div>
             <div className=" absolute -bottom-56 -right-24 z-0 h-[64vh] w-[64vh] rounded-full bg-[#946CE8]/[.62]"></div> */}
-            <div className="text-center lg:text-left">
+            <div className="text-center md:text-left lg:text-left">
               <h2 className="text-2xl tracking-wide md:text-3xl lg:text-4xl">
                 Beasiswa LPDP
               </h2>
-              <div className="my-6 flex flex-row items-center justify-center gap-3 lg:justify-start">
+              <div className="my-6 flex flex-row items-center justify-center gap-3 md:justify-start lg:justify-start">
                 <div className="w-fit rounded-full bg-[#9A4AFF] px-3 py-2 text-center text-sm font-bold text-white">
                   S2
                 </div>
@@ -34,7 +34,7 @@ export const ProgramDetailModule: React.FC = () => {
             </div>
 
             <div>
-              <div className="my-5 flex justify-center lg:my-0 lg:justify-end">
+              <div className="my-5 flex justify-center md:justify-end lg:my-0 lg:justify-end">
                 <Button
                   className="justify-end border-2 border-white bg-white"
                   variant={"primary"}
