@@ -32,19 +32,19 @@ export const ProgramModule: React.FC = () => {
       <div className="my-10 flex flex-row items-center justify-center gap-5 px-32">
         <SearchInput className="4/5 w-full" />
         <Button
-          className=" w-1/5 border-2  border-solid border-primary bg-white text-primary"
+          className="w-1/5 border-2  border-solid border-primary bg-white text-primary"
           variant={"primary"}
           size={"md"}
         >
-          {" "}
-          <div className="flex-between flex items-center justify-center">
-            <p className=" text-black">Tambah Filter</p>
-            <RiFilter3Line
-              color="black"
-              size={24}
-              className="my-auto active:scale-[80%]"
-            />
-          </div>
+          Tambah Filter
+          {/* <div className="flex-between flex items-center justify-center">
+            Tambah Filter */}
+          <RiFilter3Line
+            color="black"
+            size={24}
+            className="my-auto active:scale-[80%]"
+          />
+          {/* </div> */}
         </Button>
       </div>
 
