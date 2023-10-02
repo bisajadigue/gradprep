@@ -159,10 +159,10 @@ export const userDataRouter = createTRPCRouter({
 
   getUserInformationById: publicProcedure
     .input(z.object({ id: z.string() }))
-    .query(async ({ input: { id }, ctx }) => {
+    .query(async ({ input, ctx }) => {
       const user = await ctx.db.user.findUnique({
         where: {
-          id: id,
+          id: input.id,
         },
         include: {
           education: true,
@@ -200,9 +200,27 @@ export const userDataRouter = createTRPCRouter({
       }
 
       if (user.role === "STUDENT" && user.student) {
+        const testAttempts = await ctx.db.testAttempt.findMany({
+          where: {
+            studentId: input.id,
+          },
+          include: {
+            test: true,
+          },
+        });
+
+        const attemptedTests = testAttempts.map((attempt) => ({
+          test: attempt.test,
+          testAttempt: {
+            ...attempt,
+            test: undefined,
+          },
+          isAttempted: true,
+        }));
+
         return {
           ...user,
-          testAttempts: user.student.testAttempts,
+          testAttempts: attemptedTests,
           mentor: undefined,
           student: undefined,
         };
@@ -262,9 +280,27 @@ export const userDataRouter = createTRPCRouter({
     }
 
     if (user.role === "STUDENT" && user.student) {
+      const testAttempts = await ctx.db.testAttempt.findMany({
+        where: {
+          studentId: currentUserId,
+        },
+        include: {
+          test: true,
+        },
+      });
+
+      const attemptedTests = testAttempts.map((attempt) => ({
+        test: attempt.test,
+        testAttempt: {
+          ...attempt,
+          test: undefined,
+        },
+        isAttempted: true,
+      }));
+
       return {
         ...user,
-        testAttempts: user.student.testAttempts,
+        testAttempts: attemptedTests,
         mentor: undefined,
         student: undefined,
       };

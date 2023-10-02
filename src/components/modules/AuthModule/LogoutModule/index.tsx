@@ -38,5 +38,5 @@ export default function LogoutPage() {
         </GenericCard>
       </main>
     </>
-  )
+  );
 }
