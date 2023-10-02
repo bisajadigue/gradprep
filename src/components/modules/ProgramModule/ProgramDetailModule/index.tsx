@@ -9,7 +9,7 @@ export const ProgramDetailModule: React.FC = () => {
   return (
     <>
       {/* Hero */}
-      <div className="relative flex h-full flex-col items-center justify-center bg-primary pt-32 text-white md:flex-row">
+      <div className="md:px- relative flex h-full flex-col items-center justify-center bg-primary pt-32 text-white md:flex-row ">
         <div className="container items-center md:flex-row lg:flex-row">
           <div className="flex flex-col items-center justify-between px-3 py-8 md:flex-row lg:flex-row">
             {/* <div className=" absolute -left-32 -top-48 z-0 h-[80vh] w-[80vh] rounded-full bg-[#5056ED]/[.42]"></div>
@@ -58,7 +58,7 @@ export const ProgramDetailModule: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="bg-white p-9 lg:p-14">
+      <div className="bg-white p-9 lg:px-24 lg:py-14">
         <p className="mt-3 text-base lg:text-xl">
           In today&aposs world, college students do not have it easy. In
           addition to the skyrocketing costs of college tuition, the amounts
