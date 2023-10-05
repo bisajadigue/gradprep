@@ -10,7 +10,7 @@ export default function LogoutPage() {
   const router = useRouter()
 
   useEffect(() => {
-    sessionData ? void signOut : ''
+    sessionData ? void signOut() : ''
     setTimeout(() => {
       void router.push("/")
     }, 2500)
