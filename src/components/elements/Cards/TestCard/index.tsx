@@ -7,9 +7,7 @@ import Link from "next/link";
 export const TestCard: React.FC<MentorCardProps> = ({ className, data }) => {
   return (
     <>
-      <GenericCard
-        className={`${className} flex w-[300px] flex-col transition-all hover:-translate-y-2`}
-      >
+      <GenericCard className={`${className} flex w-[300px] flex-col`}>
         <Image
           src={data.ppUrl}
           alt={"wee"}

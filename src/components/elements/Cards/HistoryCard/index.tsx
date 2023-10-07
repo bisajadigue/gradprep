@@ -8,16 +8,16 @@ export const HistoryCard: React.FC<MentorCardProps> = ({ className, data }) => {
   return (
     <>
       <GenericCard
-        className={`${className} flex w-[300px] flex-row transition-all hover:-translate-y-2`}
+        className={`${className} flex flex-row md:w-[200px] lg:w-[300px]`}
       >
         <Image
           src={data.ppUrl}
           alt={"wee"}
           width={260}
           height={260}
-          className="h-[90px] w-[100px] rounded-[15px] object-cover group-hover:scale-105"
+          className="mr-4 h-[100px] w-[120px] rounded-[15px] object-cover group-hover:scale-105"
         />
-        <h3>{data.name}</h3>
+        <h4>{data.name}</h4>
       </GenericCard>
     </>
   );
