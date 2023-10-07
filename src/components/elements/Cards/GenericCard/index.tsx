@@ -7,7 +7,7 @@ export const GenericCard: React.FC<GenericCardProps> = ({
   return (
     <>
       <div
-        className={`${className} h-fit w-fit rounded-[15px] bg-white p-6 shadow-md shadow-gray-500`}
+        className={`${className} h-fit w-fit rounded-[15px] bg-white p-5 shadow-md shadow-gray-500`}
       >
         {children}
       </div>
