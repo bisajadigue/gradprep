@@ -141,10 +141,10 @@ export const TestModule: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center px-10">
         <div className="w-full rounded-xl  bg-lilac  p-2 text-center lg:w-3/4 lg:p-6">
           <h3 className="mb-16">Keunggulan Prep Test di GradPrep</h3>
-          <div className="grid justify-items-center gap-10 lg:grid-cols-3">
+          <div className="grid justify-items-center gap-10 md:grid-cols-3 lg:grid-cols-3">
             <div className="mlex  w-full flex-col justify-center rounded-xl bg-white p-2 text-center">
               <div className="flex justify-center">
                 <Lottie className="-mt-14 w-24 lg:w-32" animationData={Value} />
@@ -179,11 +179,13 @@ export const TestModule: React.FC = () => {
                 Bebas tentukan jadwal bimbingan sesuai kesepakatan dengan tutor.
               </p>
             </div>
+          </div>
 
+          <div className="mt-10 grid justify-items-center gap-10 md:grid-cols-2 lg:grid-cols-2">
             <div className="flex  w-full flex-col justify-center rounded-xl bg-white p-2 text-center">
               <div className="flex justify-center">
                 <Lottie
-                  className="-mt-14 w-24 lg:w-32"
+                  className="-mt-14 w-24 lg:w-1/3"
                   animationData={Value3}
                 />
               </div>
@@ -196,20 +198,7 @@ export const TestModule: React.FC = () => {
             <div className="flex w-full flex-col justify-center rounded-xl bg-white p-2 text-center">
               <div className="flex justify-center">
                 <Lottie
-                  className="-mt-14 w-24 lg:w-32"
-                  animationData={Value4}
-                />
-              </div>
-              <h4 className="font-bold">Gratis Simulasi Tes </h4>
-              <p className="text-sm lg:text-xl">
-                Kesempatan untuk dapat tes simulasi gratis untuk mengetahui
-                progress belajar.
-              </p>
-            </div>
-            <div className="flex w-full flex-col justify-center rounded-xl bg-white p-2 text-center">
-              <div className="flex justify-center">
-                <Lottie
-                  className="-mt-14 w-24 lg:w-32"
+                  className="-mt-14 w-24 lg:w-1/3"
                   animationData={Value4}
                 />
               </div>
@@ -223,8 +212,8 @@ export const TestModule: React.FC = () => {
         </div>
       </div>
 
-      <h2 className="text-center lg:px-44 lg:text-start">IELTS</h2>
-      <div className="mb-10 grid items-center justify-items-center gap-4  bg-white px-2 md:grid-cols-2 lg:grid-cols-3">
+      <h2 className="mt-10 text-center lg:px-44 lg:text-start">IELTS</h2>
+      <div className="mb-10 grid items-center justify-items-center  gap-4 bg-white px-3 md:grid-cols-2 md:px-20 lg:grid-cols-3 lg:px-32">
         <TestCard
           data={{
             userId: "12312321",
@@ -288,7 +277,7 @@ export const TestModule: React.FC = () => {
       </div>
 
       <h2 className="text-center lg:px-44 lg:text-start">SAT</h2>
-      <div className="mb-10 grid items-center justify-items-center bg-white px-2 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mb-10 grid items-center justify-items-center  gap-4 bg-white px-3 md:grid-cols-2 md:px-20 lg:grid-cols-3 lg:px-32">
         <TestCard
           data={{
             userId: "12312321",
