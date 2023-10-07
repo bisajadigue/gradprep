@@ -7,9 +7,6 @@ import Value4 from "../../../../public/assets/lottie/value4.json";
 import { HistoryCard } from "@/components/elements/Cards/HistoryCard";
 
 import Test from "../../../../public/assets/lottie/test.json";
-import { ProgramCard } from "@/components/elements/Cards/ProgramCard";
-import { Button, SearchInput } from "@/components/elements";
-import { RiFilter3Line } from "react-icons/ri";
 import { TestCard } from "@/components/elements/Cards/TestCard";
 
 export const TestModule: React.FC = () => {
