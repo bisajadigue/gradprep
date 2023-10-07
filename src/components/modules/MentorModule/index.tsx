@@ -1,9 +1,20 @@
 import { SearchInput, MentorCard } from "@/components/elements";
+import { api } from "@/utils/api";
+import { type User } from "@prisma/client";
 import Lottie from "lottie-react";
 import Head from "next/head";
 import Help from "public/assets/lottie/help.json";
+import { useState, useEffect } from "react";
 
 export default function MentorsHomePage() {
+  const fetchMentors = api.mentor.getAllMentor.useQuery()
+  const [data, setData] = useState<User[] | undefined>();
+
+  useEffect(() => {
+    console.log(fetchMentors.data)
+    void setData(fetchMentors.data)
+  }, [fetchMentors.data])
+
   return (
     <>
       <Head>
@@ -18,8 +29,8 @@ export default function MentorsHomePage() {
           <div className="absolute bottom-0 right-[5vw] w-[20vw]">
             <Lottie animationData={Help} loop={false} />
           </div>
-          <div className="container mx-auto flex h-full w-full flex-col items-start justify-start gap-y-8 pt-36">
-            <h3 className="md:max-w-[85%]">
+          <div className="container mx-auto flex h-full w-full flex-col items-start justify-center gap-y-8 pt-36">
+            <h3 className="md:max-w-[85%] text-3xl">
               Temukan mentor yang tepat untuk pendidikanmu!
             </h3>
             <SearchInput
@@ -27,28 +38,14 @@ export default function MentorsHomePage() {
               className="max-w-[60%]"
             />
           </div>
-          <div className="container relative min-h-[90vh] w-full bg-white py-8">
-            <MentorCard
-              data={{
-                userId: "12312321",
-                name: "wee",
-                email: "wee@mail.com",
-                ppUrl: "https://placekitten.com/900/500",
-                cvUrl: "",
-                experiences: [
-                  {
-                    organization: "Universitas Indonesia",
-                    title: "Dosen",
-                    startPeriod: "2022-01-01",
-                    endPeriod: "2023-01-01",
-                  },
-                ],
-                bio: "lover",
-                education: "Computer Science",
-                expertise: "Information Retrieval",
-              }}
-            />
-          </div>
+          <div className="container relative min-h-[90vh] w-full py-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 mx-auto">
+            { data?.map((mentor, i) => (
+              <MentorCard key={i} data={mentor} />
+            )) }
+            { data?.map((mentor, i) => (
+              <MentorCard key={i} data={mentor} />
+            )) }
+          </div> 
         </div>
       </main>
     </>
