@@ -8,6 +8,19 @@ import Connect from "public/assets/lottie/connect.json";
 import Info from "public/assets/lottie/info.json";
 import Quiz from "public/assets/lottie/quiz.json";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { api } from "@/utils/api";
+import { $Enums, PrismaClient, Prisma } from "@prisma/client";
+import { DefaultArgs } from "@prisma/client/runtime/library";
+import { TRPCClientErrorLike } from "@trpc/client";
+import { UseTRPCQueryResult } from "@trpc/react-query/shared";
+import { BuildProcedure, RootConfig, unsetMarker } from "@trpc/server";
+import { TRPC_ERROR_CODE_NUMBER } from "@trpc/server/rpc";
+import { Session } from "next-auth";
+import SuperJSON from "superjson";
+import { typeToFlattenedError } from "zod";
+import { useRouter } from "next/router";
 
 const LOGOS: string[] = [
   "cambridge-logo.png",
@@ -21,6 +34,16 @@ const LOGOS: string[] = [
 ]
 
 export default function LandingPage() {
+  const { data: sessionData } = useSession();
+  const fetchUser = api.userData.getCurrentUserInformation.useQuery()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!fetchUser.isFetched) return;
+    if (fetchUser.data?.isOnboarded === false) {
+      void router.push('/user/onboarding');
+    }
+  }, [fetchUser.data?.isOnboarded, fetchUser.isFetched, router, sessionData])
 
   return (
     <>
