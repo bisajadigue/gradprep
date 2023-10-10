@@ -1,14 +1,18 @@
 import Image from "next/image";
 import { GenericCard } from "../GenericCard";
 import { type MentorCardProps } from "./interface";
-import { RiArrowRightLine, RiOpenArmFill, RiSuitcase2Fill } from "react-icons/ri";
+import {
+  RiArrowRightLine,
+  RiOpenArmFill,
+  RiSuitcase2Fill,
+} from "react-icons/ri";
 import Link from "next/link";
 
 export const MentorCard: React.FC<MentorCardProps> = ({ className, data }) => {
   return (
     <>
       <GenericCard
-        className={`${className} flex w-[240px] flex-col transition-all hover:-translate-y-1 text-black`}
+        className={`${className} flex w-[240px] flex-col text-black transition-all hover:-translate-y-1`}
       >
         <Image
           src={data.image!}
@@ -17,7 +21,7 @@ export const MentorCard: React.FC<MentorCardProps> = ({ className, data }) => {
           height={260}
           className="h-[200px] w-[240px] rounded-[10px] object-cover group-hover:scale-105"
         />
-        <p className="font-bold mt-1 mb-2">{data.name}</p>
+        <p className="mb-2 mt-1 font-bold">{data.name}</p>
         <div className="flex items-center gap-x-2 font-light">
           <RiSuitcase2Fill />
           <p>{data.education[0]?.degree}</p>
@@ -26,7 +30,10 @@ export const MentorCard: React.FC<MentorCardProps> = ({ className, data }) => {
           <RiOpenArmFill />
           <p>{data.mentor.experiences[0]?.title}</p>
         </div>
-        <Link className="w-fit mt-7 mb-1 ml-auto flex items-center" href={`/mentors/${data.id}`}>
+        <Link
+          className="mb-1 ml-auto mt-7 flex w-fit items-center"
+          href={`/mentors/${data.id}`}
+        >
           Lihat Detail
           <RiArrowRightLine />
         </Link>

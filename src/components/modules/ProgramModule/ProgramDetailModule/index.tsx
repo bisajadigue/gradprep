@@ -24,7 +24,7 @@ export const ProgramDetailModule: React.FC = () => {
                 <div className="w-fit rounded-full bg-[#9A4AFF] px-3 py-2 text-center text-sm font-bold text-white">
                   S2
                 </div>
-                <div className="bg-green w-fit rounded-full p-2 text-center text-sm font-bold text-black lg:p-3">
+                <div className="w-fit rounded-full bg-green p-2 text-center text-sm font-bold text-black lg:p-3">
                   Fully Funded
                 </div>
               </div>
@@ -44,7 +44,7 @@ export const ProgramDetailModule: React.FC = () => {
                 </Button>
               </div>
 
-              <div className="bg-lightpurple my-3 w-full rounded-xl p-5 text-black">
+              <div className="my-3 w-full rounded-xl bg-lightpurple p-5 text-black">
                 <div className="flex flex-row gap-7 text-sm lg:text-lg">
                   <p>Mulai Registrasi</p>
                   <p>12 Juni 2025, 00.30 WIB</p>

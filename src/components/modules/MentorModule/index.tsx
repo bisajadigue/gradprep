@@ -7,13 +7,13 @@ import Help from "public/assets/lottie/help.json";
 import { useState, useEffect } from "react";
 
 export default function MentorsHomePage() {
-  const fetchMentors = api.mentor.getAllMentor.useQuery()
+  const fetchMentors = api.mentor.getAllMentor.useQuery();
   const [data, setData] = useState<User[] | undefined>();
 
   useEffect(() => {
-    console.log(fetchMentors.data)
-    void setData(fetchMentors.data)
-  }, [fetchMentors.data])
+    console.log(fetchMentors.data);
+    void setData(fetchMentors.data);
+  }, [fetchMentors.data]);
 
   return (
     <>
@@ -30,7 +30,7 @@ export default function MentorsHomePage() {
             <Lottie animationData={Help} loop={false} />
           </div>
           <div className="container mx-auto flex h-full w-full flex-col items-start justify-center gap-y-8 pt-36">
-            <h3 className="md:max-w-[85%] text-3xl">
+            <h3 className="text-3xl md:max-w-[85%]">
               Temukan mentor yang tepat untuk pendidikanmu!
             </h3>
             <SearchInput
@@ -38,14 +38,10 @@ export default function MentorsHomePage() {
               className="max-w-[60%]"
             />
           </div>
-          <div className="container relative min-h-[90vh] w-full py-8 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 mx-auto">
-            { data?.map((mentor, i) => (
-              <MentorCard key={i} data={mentor} />
-            )) }
-            { data?.map((mentor, i) => (
-              <MentorCard key={i} data={mentor} />
-            )) }
-          </div> 
+          <div className="container relative mx-auto grid min-h-[90vh] w-full grid-cols-2 gap-2 py-8 sm:grid-cols-3 lg:grid-cols-4">
+            {data?.map((mentor, i) => <MentorCard key={i} data={mentor} />)}
+            {data?.map((mentor, i) => <MentorCard key={i} data={mentor} />)}
+          </div>
         </div>
       </main>
     </>

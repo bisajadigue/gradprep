@@ -10,8 +10,7 @@ export default {
         purple: "#6E00FA",
         lightpurple: "#F5E8FF",
         green: "#66D63F",
-        lilac: "#B6B8F7"
-
+        lilac: "#B6B8F7",
       },
       fontFamily: {
         jakarta: "jakarta",

@@ -190,11 +190,7 @@ export const userDataRouter = createTRPCRouter({
       if (user.role === "MENTOR" && user.mentor) {
         return {
           ...user,
-          expertise: user.mentor.expertise,
-          cvUrl: user.mentor.cvUrl,
-          calendlyUrl: user.mentor.calendlyUrl,
-          experiences: user.mentor.experiences,
-          mentor: undefined,
+          mentor: user.mentor,
           student: undefined,
         };
       }
@@ -220,9 +216,8 @@ export const userDataRouter = createTRPCRouter({
 
         return {
           ...user,
-          testAttempts: attemptedTests,
           mentor: undefined,
-          student: undefined,
+          student: { testAttempts: attemptedTests },
         };
       }
 
@@ -270,11 +265,7 @@ export const userDataRouter = createTRPCRouter({
     if (user.role === "MENTOR" && user.mentor) {
       return {
         ...user,
-        expertise: user.mentor.expertise,
-        cvUrl: user.mentor.cvUrl,
-        calendlyUrl: user.mentor.calendlyUrl,
-        experiences: user.mentor.experiences,
-        mentor: undefined,
+        mentor: user.mentor,
         student: undefined,
       };
     }
@@ -300,9 +291,8 @@ export const userDataRouter = createTRPCRouter({
 
       return {
         ...user,
-        testAttempts: attemptedTests,
         mentor: undefined,
-        student: undefined,
+        student: { testAttempts: attemptedTests },
       };
     }
 

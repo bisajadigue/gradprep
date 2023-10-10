@@ -22,17 +22,17 @@ export const ProgramCard: React.FC<IProgram> = ({
         className={`${className} flex w-[290px] transform flex-col transition-all duration-500 hover:scale-105 lg:w-[340px]`}
       >
         <div className="flex flex-row items-center gap-3">
-          <div className="bg-purple w-fit rounded-full px-4 py-2 text-center text-sm font-bold text-white">
+          <div className="w-fit rounded-full bg-purple px-4 py-2 text-center text-sm font-bold text-white">
             S2
           </div>
-          <div className="bg-green w-fit rounded-full p-2 text-center text-sm font-bold text-white lg:p-3">
+          <div className="w-fit rounded-full bg-green p-2 text-center text-sm font-bold text-white lg:p-3">
             Fully Funded
           </div>
         </div>
 
         <h3 className="text-xl font-extrabold lg:text-3xl">Beasiswa LPDP</h3>
         <h3 className="text-lg font-thin lg:text-2xl">Kemendikbud</h3>
-        <div className="bg-lightpurple my-3 w-full rounded-xl p-5">
+        <div className="my-3 w-full rounded-xl bg-lightpurple p-5">
           <div className="flex flex-row gap-7 text-sm lg:text-lg">
             <p>Mulai Registrasi</p>
             <p>12 Juni 2025, 00.30 WIB</p>

@@ -148,6 +148,7 @@ model TestAttempt {
     score            Int               @default(0)
     startTime        DateTime          @default(now())
     questionAttempts QuestionAttempt[]
+    isSubmitted      Boolean?          @default(false)
     student          Student           @relation(fields: [studentId], references: [userId])
     test             Test              @relation(fields: [testId], references: [id])
 }
@@ -177,6 +178,7 @@ model Booking {
     startTime  DateTime
     link       String?
     isApproved Boolean? @default(false)
+    isRejected Boolean? @default(false)
     mentor     Mentor   @relation(fields: [mentorId], references: [userId])
     mentee     Student  @relation(fields: [menteeId], references: [userId])
 }
@@ -188,6 +190,8 @@ model Event {
     funding      String
     providerName String
     description  String
+    eligibility  String?
+    benefits     String?
     startTime    DateTime
     endTime      DateTime
 }

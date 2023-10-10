@@ -124,4 +124,51 @@ export const bookingRouter = createTRPCRouter({
         return { error: "Error while approving the booking." };
       }
     }),
+
+  rejectedBooking: protectedProcedure
+    .input(
+      z.object({
+        bookingId: z.string(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      try {
+        if (!ctx.session || !ctx.session.user) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "User not authenticated",
+            cause: null,
+          });
+        }
+
+        // Fetch the booking by its ID
+        const booking = await ctx.db.booking.findUnique({
+          where: { id: input.bookingId },
+        });
+
+        if (!booking) {
+          return { error: "Booking not found." };
+        }
+
+        const currentUserId = ctx.session.user.id;
+        if (currentUserId !== booking.mentorId) {
+          return {
+            error: "You do not have permission to approve this booking.",
+          };
+        }
+
+        // Update the booking's isRejected status
+        const updatedBooking = await ctx.db.booking.update({
+          where: { id: input.bookingId },
+          data: { isRejected: true },
+        });
+
+        return {
+          success: true,
+          message: "Booking rejected successfully!",
+        };
+      } catch (error) {
+        return { error: "Error while rejected the booking." };
+      }
+    }),
 });
