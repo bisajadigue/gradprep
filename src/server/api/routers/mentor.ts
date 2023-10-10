@@ -8,6 +8,11 @@ import {
 
 export const mentorRouter = createTRPCRouter({
   getAllMentor: publicProcedure.query(async ({ ctx }) => {
-    return ctx.db.user.findMany({ where: { role: "MENTOR" } });
+    return ctx.db.user.findMany({ where: { role: "MENTOR" }, include: {
+      mentor: {
+        include: {
+          experiences: true,
+        },
+      } }});
   }),
 });
