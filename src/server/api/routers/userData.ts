@@ -190,8 +190,7 @@ export const userDataRouter = createTRPCRouter({
       if (user.role === "MENTOR" && user.mentor) {
         return {
           ...user,
-          ...user.mentor,
-          mentor: undefined,
+          mentor: user.mentor,
           student: undefined,
         };
       }
@@ -217,9 +216,8 @@ export const userDataRouter = createTRPCRouter({
 
         return {
           ...user,
-          testAttempts: attemptedTests,
           mentor: undefined,
-          student: undefined,
+          student: { testAttempts: attemptedTests },
         };
       }
 
@@ -267,8 +265,7 @@ export const userDataRouter = createTRPCRouter({
     if (user.role === "MENTOR" && user.mentor) {
       return {
         ...user,
-        ...user.mentor,
-        mentor: undefined,
+        mentor: user.mentor,
         student: undefined,
       };
     }
@@ -294,9 +291,8 @@ export const userDataRouter = createTRPCRouter({
 
       return {
         ...user,
-        testAttempts: attemptedTests,
         mentor: undefined,
-        student: undefined,
+        student: { testAttempts: attemptedTests },
       };
     }
 

@@ -1,5 +1,3 @@
-
-  export interface TestDetailCardProps {
-    className?: string;
-  }
-  
+export interface TestDetailCardProps {
+  className?: string;
+}

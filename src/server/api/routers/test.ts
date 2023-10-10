@@ -160,7 +160,7 @@ export const testRouter = createTRPCRouter({
       }
     }),
 
-  startTest: publicProcedure
+  startTest: protectedProcedure
     .input(
       z.object({
         testId: z.string(),
@@ -218,7 +218,7 @@ export const testRouter = createTRPCRouter({
       return testAttempt;
     }),
 
-  recordQuestionAttempt: publicProcedure
+  recordQuestionAttempt: protectedProcedure
     .input(
       z.object({
         testAttemptId: z.string(),
@@ -351,6 +351,57 @@ export const testRouter = createTRPCRouter({
             },
           },
         });
+      }
+    }),
+
+  finishTest: protectedProcedure
+    .input(
+      z.object({
+        testAttemptId: z.string(),
+      }),
+    )
+    .mutation(async ({ input, ctx }) => {
+      if (!ctx.session || !ctx.session.user) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "User not authenticated",
+        });
+      }
+
+      const currentUserId = ctx.session.user.id;
+
+      const testAttempt = await ctx.db.testAttempt.findUnique({
+        where: {
+          id: input.testAttemptId,
+        },
+      });
+
+      if (!testAttempt) {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Test attempt not found",
+        });
+      }
+
+      if (testAttempt.studentId !== currentUserId) {
+        throw new TRPCError({
+          code: "FORBIDDEN",
+          message: "User not authorized to record this question attempt",
+        });
+      }
+
+      try {
+        const updatedTest = await ctx.db.testAttempt.update({
+          where: { id: input.testAttemptId },
+          data: { isSubmitted: true },
+        });
+
+        return {
+          success: true,
+          message: "Test submitted successfully!",
+        };
+      } catch (error) {
+        return { error: "Error while submitting the test." };
       }
     }),
 });

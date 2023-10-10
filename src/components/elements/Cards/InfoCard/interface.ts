@@ -1,5 +1,3 @@
-
-  export interface InfoCardProps {
-    className?: string;
-  }
-  
+export interface InfoCardProps {
+  className?: string;
+}

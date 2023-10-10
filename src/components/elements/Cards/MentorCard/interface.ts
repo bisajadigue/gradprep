@@ -30,13 +30,12 @@ export interface IMentor {
   ppUrl: string;
 }
 
-
 export interface IMentorNew extends User {
-  education: IEducation[]
+  education: IEducation[];
   mentor: {
-    experiences: IExperience[]
-    expertise: string
-  }
+    experiences: IExperience[];
+    expertise: string;
+  };
 }
 
 export interface MentorCardProps {

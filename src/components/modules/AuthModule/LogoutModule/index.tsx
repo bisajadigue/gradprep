@@ -1,5 +1,5 @@
 import { GenericCard, Button } from "@/components/elements";
-import { useSession, signOut } from 'next-auth/react';
+import { useSession, signOut } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -7,14 +7,14 @@ import { useEffect } from "react";
 
 export default function LogoutPage() {
   const { data: sessionData } = useSession();
-  const router = useRouter()
+  const router = useRouter();
 
   useEffect(() => {
-    sessionData ? void signOut() : ''
+    sessionData ? void signOut() : "";
     setTimeout(() => {
-      void router.push("/")
-    }, 2500)
-  }, [router, sessionData])
+      void router.push("/");
+    }, 2500);
+  }, [router, sessionData]);
 
   return (
     <>
@@ -26,8 +26,8 @@ export default function LogoutPage() {
 
       {/* Hero */}
       <main className="relative flex min-h-screen flex-col items-center justify-center bg-primary">
-        <GenericCard className="min-w-[40vh] min-h-[60vh] flex flex-col items-center justify-center gap-y-3">
-          <Image 
+        <GenericCard className="flex min-h-[60vh] min-w-[40vh] flex-col items-center justify-center gap-y-3">
+          <Image
             src="/gradprep.png"
             width={120}
             height={120}

@@ -13,31 +13,31 @@ import { useSession } from "next-auth/react";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function MentorDetailPage() {
-  const router = useRouter()
-  const id = router.query.id as string
+  const router = useRouter();
+  const id = router.query.id as string;
 
-  const fetchMentor = api.userData.getUserInformationById.useQuery({ id: id })
-  const requestBooking = api.booking.booking.useMutation()
+  const fetchMentor = api.userData.getUserInformationById.useQuery({ id: id });
+  const requestBooking = api.booking.booking.useMutation();
   const [data, setData] = useState<IMentorNew | undefined>(undefined);
   const { data: sessionData } = useSession();
 
   useEffect(() => {
-    void setData(fetchMentor.data as IMentorNew)
-  }, [fetchMentor.data])
-  
+    void setData(fetchMentor.data as IMentorNew);
+  }, [fetchMentor.data]);
+
   function request() {
-    const body = { 
+    const body = {
       studentId: sessionData!.user.id,
-      mentorId: id, 
-    }
-    console.log(`requesting:` + JSON.stringify(body))
-    requestBooking.mutate(body)
+      mentorId: id,
+    };
+    console.log(`requesting:` + JSON.stringify(body));
+    requestBooking.mutate(body);
 
     if (requestBooking.data) {
-      console.log(requestBooking.data)
+      console.log(requestBooking.data);
     }
     if (requestBooking.isError) {
-      toast.error('Booking failed')
+      toast.error("Booking failed");
     }
   }
 
@@ -58,29 +58,29 @@ export default function MentorDetailPage() {
           </div>
           <div className="container mx-auto flex h-[12vh] w-full flex-row items-start justify-start gap-x-3 pt-[27vh]">
             <div>
-              { data?.image && <Image
-                src={data.image}
-                width={140}
-                height={140}
-                alt="mentor profile picture"
-                className="rounded-full"
-              /> }
+              {data?.image && (
+                <Image
+                  src={data.image}
+                  width={140}
+                  height={140}
+                  alt="mentor profile picture"
+                  className="rounded-full"
+                />
+              )}
             </div>
             <div>
-              <h2 className="">
-                {data?.name}
-              </h2>
+              <h2 className="">{data?.name}</h2>
               {/* <p>{data?.mentor.experiences[0]?.title}</p> */}
-              <RiFile2Fill size={24} color="#0d0d0d" className="mt-2"/>
+              <RiFile2Fill size={24} color="#0d0d0d" className="mt-2" />
             </div>
           </div>
         </div>
-        <div className="container flex flex-col md:flex-row gap-8 mt-[10vh] w-full">
-          <div className="md:w-[70%] bg-gray-50 border border-gray-400 rounded-[15px] p-10">
+        <div className="container mt-[10vh] flex w-full flex-col gap-8 md:flex-row">
+          <div className="rounded-[15px] border border-gray-400 bg-gray-50 p-10 md:w-[70%]">
             <p>TODO</p>
             <p className="font-bold">Bio</p>
             <p>{data?.bio}</p>
-            <hr className="my-3"/>
+            <hr className="my-3" />
             <p className="font-bold">Experiences</p>
             {/* {data?.experiences.map((exp, i) => (
               <div key={i} className="ml-6">
@@ -88,7 +88,7 @@ export default function MentorDetailPage() {
                 <p>{exp.title}</p>
               </div>
             ))} */}
-            <hr className="my-3"/>
+            <hr className="my-3" />
             <p className="font-bold">Education</p>
             {data?.education.map((edu, i) => (
               <div key={i} className="ml-6">
@@ -97,12 +97,22 @@ export default function MentorDetailPage() {
               </div>
             ))}
           </div>
-          <div className="md:w-[30%] bg-gray-50 border border-gray-400 rounded-[15px] p-10 flex flex-col items-center text-center gap-1">
+          <div className="flex flex-col items-center gap-1 rounded-[15px] border border-gray-400 bg-gray-50 p-10 text-center md:w-[30%]">
             <p className="font-bold">Mentoring Topics</p>
             {/* <p>{data?.expertise}</p> */}
-            <hr className="mt-8"/>
-            <Button variant={"primary"} size={"md"} onClick={() => {request()}}>Request Session</Button>
-            <p>This mentor has completed <b>XX</b> sessions!</p>
+            <hr className="mt-8" />
+            <Button
+              variant={"primary"}
+              size={"md"}
+              onClick={() => {
+                request();
+              }}
+            >
+              Request Session
+            </Button>
+            <p>
+              This mentor has completed <b>XX</b> sessions!
+            </p>
           </div>
         </div>
       </main>
