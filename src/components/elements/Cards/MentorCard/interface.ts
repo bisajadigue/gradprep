@@ -32,9 +32,11 @@ export interface IMentor {
 
 
 export interface IMentorNew extends User {
-  experiences: IExperience[]
   education: IEducation[]
-  expertise: string
+  mentor: {
+    experiences: IExperience[]
+    expertise: string
+  }
 }
 
 export interface MentorCardProps {

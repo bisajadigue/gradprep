@@ -8,19 +8,38 @@ import Help from "public/assets/lottie/help.json";
 import { Button, SearchInput } from "@/components/elements";
 import { RiFile2Fill, RiFile2Line, RiFileImageLine } from "react-icons/ri";
 import Image from "next/image";
-import { IMentorNew } from "@/components/elements/Cards/MentorCard/interface";
+import { type IMentorNew } from "@/components/elements/Cards/MentorCard/interface";
+import { useSession } from "next-auth/react";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function MentorDetailPage() {
   const router = useRouter()
   const id = router.query.id as string
 
   const fetchMentor = api.userData.getUserInformationById.useQuery({ id: id })
+  const requestBooking = api.booking.booking.useMutation()
   const [data, setData] = useState<IMentorNew | undefined>(undefined);
+  const { data: sessionData } = useSession();
 
   useEffect(() => {
     void setData(fetchMentor.data as IMentorNew)
   }, [fetchMentor.data])
   
+  function request() {
+    const body = { 
+      studentId: sessionData!.user.id,
+      mentorId: id, 
+    }
+    console.log(`requesting:` + JSON.stringify(body))
+    requestBooking.mutate(body)
+
+    if (requestBooking.data) {
+      console.log(requestBooking.data)
+    }
+    if (requestBooking.isError) {
+      toast.error('Booking failed')
+    }
+  }
 
   return (
     <>
@@ -33,6 +52,7 @@ export default function MentorDetailPage() {
       {/* Hero */}
       <main className="relative flex min-h-screen flex-col items-center justify-start">
         <div className="relative h-[40vh] w-full bg-primary text-white">
+          <Toaster />
           <div className="absolute bottom-0 right-[5vw] w-[20vw]">
             <Lottie animationData={Help} loop={false} />
           </div>
@@ -50,7 +70,7 @@ export default function MentorDetailPage() {
               <h2 className="">
                 {data?.name}
               </h2>
-              <p>{data?.experiences[0]?.title}</p>
+              {/* <p>{data?.mentor.experiences[0]?.title}</p> */}
               <RiFile2Fill size={24} color="#0d0d0d" className="mt-2"/>
             </div>
           </div>
@@ -62,12 +82,12 @@ export default function MentorDetailPage() {
             <p>{data?.bio}</p>
             <hr className="my-3"/>
             <p className="font-bold">Experiences</p>
-            {data?.experiences.map((exp, i) => (
+            {/* {data?.experiences.map((exp, i) => (
               <div key={i} className="ml-6">
                 <p>{exp.organization}</p>
                 <p>{exp.title}</p>
               </div>
-            ))}
+            ))} */}
             <hr className="my-3"/>
             <p className="font-bold">Education</p>
             {data?.education.map((edu, i) => (
@@ -79,9 +99,9 @@ export default function MentorDetailPage() {
           </div>
           <div className="md:w-[30%] bg-gray-50 border border-gray-400 rounded-[15px] p-10 flex flex-col items-center text-center gap-1">
             <p className="font-bold">Mentoring Topics</p>
-            <p>{data?.expertise}</p>
+            {/* <p>{data?.expertise}</p> */}
             <hr className="mt-8"/>
-            <Button variant={"primary"} size={"md"}>Request Session</Button>
+            <Button variant={"primary"} size={"md"} onClick={() => {request()}}>Request Session</Button>
             <p>This mentor has completed <b>XX</b> sessions!</p>
           </div>
         </div>
