@@ -1,13 +1,16 @@
 import Link from "next/link";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import { Button } from "../Button";
 import { type NavbarProps } from "./interface";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { RiArrowDropDownFill, RiArrowDropRightFill } from "react-icons/ri";
 
 export const CustomNavbar: React.FC<NavbarProps> = () => {
+  const [isShowDropdown, setIsShowDropdown] = useState<boolean>(false);
   const { data: sessionData } = useSession();
+  const router = useRouter()
 
   useEffect(() => {
     window.onscroll = function () {
@@ -20,16 +23,20 @@ export const CustomNavbar: React.FC<NavbarProps> = () => {
     };
   }, []);
 
+  useEffect(() => {
+    setIsShowDropdown(false);
+  }, [router.pathname])
+
   return (
     <nav
       id="navbar"
-      className={`fixed z-50 flex w-[90vw] mx-[5vw] my-6 px-[4vw] py-3 transition-all duration-[1s] [&>*]:z-50 bg-white rounded-[15px] shadow-md`}
+      className={`absolute z-50 flex w-[95vw] md:w-[90vw] px-[2vw] md:px-[4vw] mx-[5vw] py-3 my-6 transition-all duration-[1s] [&>*]:z-50 bg-white/90 rounded-[15px] shadow-md`}
     >
-      <div className="relative flex w-full font-bold">
-        <Link href="/" className="inline-block w-fit text-primary drop-shadow-lg">
+      <div className="relative flex w-full">
+        <Link href="/" className="hidden md:inline-block w-fit text-primary drop-shadow-lg mx-[1vw]">
           <h3>GradPrep</h3>
         </Link>
-        <div className="flex w-full justify-center gap-x-[4vw]">
+        <div className="flex w-full justify-center gap-x-[4vw] font-bold">
           <Link href={"/tests"} className="my-auto text-primary drop-shadow-lg">
             Mock Test
           </Link>
@@ -42,19 +49,33 @@ export const CustomNavbar: React.FC<NavbarProps> = () => {
         </div>
         <div className="relative my-auto inline-flex h-fit">
           {sessionData ? (
-            <div className="inline-flex">
-              <Link className="my-auto align-middle flex items-center gap-x-2" href="/user/profile">
-                <Image
-                  src={sessionData.user.image!}
-                  width={50}
-                  height={50}
-                  alt="profile picture"
-                  className="rounded-full"
-                />
-              </Link>
-              <Link href={'/logout'}>
-                sign out (temp)
-              </Link>
+            <div className="inline-flex items-center">
+              <Image
+                src={sessionData.user.image!}
+                width={36}
+                height={36}
+                alt="profile picture"
+                className="rounded-full w-[36px] h-[36px]"
+              />
+              <div className="relative inline-block text-left">
+                <button type="button" className="flex px-2 items-center transition-all" onClick={() => setIsShowDropdown(prev => !prev)}>
+                  { isShowDropdown? <RiArrowDropRightFill size={36} /> : <RiArrowDropDownFill size={36}/> }
+                </button>
+                
+                { isShowDropdown ? <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex={-1}>
+                  <div className="py-3 px-6 gap-y-2 flex flex-col" role="none">
+                    <p className="font-bold">{sessionData.user.name}</p>
+                    <hr />
+                    <Link href={'/user/profile'}>
+                      <p>Profile</p>
+                    </Link>
+                    <Link href={'/logout'}>
+                      <p>Sign Out</p>
+                    </Link>
+                  </div>
+                </div> : <></> }
+              </div>
+
             </div>
           ) : (
             <Button

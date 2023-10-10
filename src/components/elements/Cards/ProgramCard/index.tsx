@@ -44,11 +44,16 @@ export const ProgramCard: React.FC<IProgram> = ({
         </div>
         <div className="flex justify-end">
           <Button
-            className="mt-4 w-fit text-sm hover:border-2 hover:border-solid hover:border-primary hover:bg-white hover:text-primary lg:text-lg"
+            className="mt-4 flex w-fit justify-end text-sm text-white hover:border-2 hover:border-solid hover:border-primary hover:bg-white lg:text-lg"
             variant={"primary"}
             size={"md"}
           >
-            Lihat detail
+            <a
+              href="http://localhost:3000/programs/1"
+              className="hover:text-primary "
+            >
+              Lihat detail
+            </a>
           </Button>
         </div>
       </GenericCard>
