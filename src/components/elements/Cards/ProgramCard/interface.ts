@@ -1,11 +1,11 @@
 export interface IProgram {
-  id: number;
+  id: string;
   title: string;
   type: string;
   funding: string;
   providerName: string;
   description: string;
-  // startTime: Date
-  // endTime: Date
+  startTime: Date
+  endTime: Date
   className?: string;
 }

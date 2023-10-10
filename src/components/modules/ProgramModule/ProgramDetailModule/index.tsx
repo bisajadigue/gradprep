@@ -4,8 +4,33 @@ import { ProgramCard } from "@/components/elements/Cards/ProgramCard";
 import { Button, SearchInput } from "@/components/elements";
 import { RiFilter3Line } from "react-icons/ri";
 import Eligible from "../../../../../public/assets/lottie/eligibility.json";
+import { useEffect, useState } from "react";
+import { api } from "@/utils/api";
+import { ProgramCardProps } from "../interface";
 
 export const ProgramDetailModule: React.FC = () => {
+  const [path, setPath] = useState<string>(""); // Provide a default value here
+  const [events, setEvents] = useState<ProgramCardProps[]>([]);
+  const { data } = api.event.getEventById.useQuery({ eventId: path });
+
+  const { data: data1 } = api.event.getAllEvent.useQuery();
+
+  const [programDetail, setProgramDetail] = useState<ProgramCardProps>();
+
+  useEffect(() => {
+    const urlParts = window.location.href.split("/");
+    const eventId = urlParts[urlParts.length - 1];
+
+    if (eventId) {
+      setPath(eventId);
+    }
+
+    console.log(path);
+    setProgramDetail(data);
+    setEvents(data1);
+    console.log(programDetail);
+  }, [path, data]);
+
   return (
     <>
       {/* Hero */}
@@ -17,19 +42,17 @@ export const ProgramDetailModule: React.FC = () => {
             <div className=" absolute -right-48 bottom-12 z-0 h-[40vh] w-[40vh] rounded-full bg-[#111692]/[.42]"></div>
             <div className=" absolute -bottom-56 -right-24 z-0 h-[64vh] w-[64vh] rounded-full bg-[#946CE8]/[.62]"></div> */}
             <div className="text-center md:text-left lg:text-left">
-              <h2 className="text-2xl tracking-wide md:text-3xl lg:text-4xl">
-                Beasiswa LPDP
-              </h2>
+              <h2 className="text-2xl tracking-wide md:text-3xl lg:text-4xl"></h2>
               <div className="my-6 flex flex-row items-center justify-center gap-3 md:justify-start lg:justify-start">
                 <div className="w-fit rounded-full bg-[#9A4AFF] px-3 py-2 text-center text-sm font-bold text-white">
-                  S2
+                  {programDetail?.type}
                 </div>
-                <div className="bg-green w-fit rounded-full p-2 text-center text-sm font-bold text-black lg:p-3">
-                  Fully Funded
+                <div className="w-fit rounded-full bg-green p-2 text-center text-sm font-bold text-black lg:p-3">
+                  {programDetail?.funding}
                 </div>
               </div>
               <p className="mt-3 text-base font-bold tracking-wide lg:text-xl">
-                Kemendikbud
+                {programDetail?.providerName}
               </p>
             </div>
 
@@ -44,14 +67,14 @@ export const ProgramDetailModule: React.FC = () => {
                 </Button>
               </div>
 
-              <div className="bg-lightpurple my-3 w-full rounded-xl p-5 text-black">
+              <div className="my-3 w-full rounded-xl bg-lightpurple p-5 text-black">
                 <div className="flex flex-row gap-7 text-sm lg:text-lg">
                   <p>Mulai Registrasi</p>
-                  <p>12 Juni 2025, 00.30 WIB</p>
+                  {/* <p>{programDetail?.startTime}</p> */}
                 </div>
                 <div className="mt-4 flex flex-row gap-7 text-sm lg:text-lg">
                   <p>Tenggat Waktu</p>
-                  <p>25 Juni 2025, 00.30 WIB</p>
+                  {/* <p>{programDetail?.endTime}</p> */}
                 </div>
               </div>
             </div>
@@ -103,31 +126,22 @@ export const ProgramDetailModule: React.FC = () => {
         <h2 className="mb-4 text-3xl lg:text-4xl">Lihat beasiswa Lainnya</h2>
 
         <div className="mb-20 flex flex-col items-center justify-center gap-16 bg-white lg:flex-row">
-          <ProgramCard
-            id={0}
-            title={""}
-            type={""}
-            funding={""}
-            providerName={""}
-            description={""}
-          />
-          <ProgramCard
-            id={0}
-            title={""}
-            type={""}
-            funding={""}
-            providerName={""}
-            description={""}
-          />
-
-          <ProgramCard
-            id={0}
-            title={""}
-            type={""}
-            funding={""}
-            providerName={""}
-            description={""}
-          />
+          {events?.map((event) => {
+            return (
+              <>
+                <ProgramCard
+                  id={event.id}
+                  title={event.title}
+                  type={event.type}
+                  funding={event.funding}
+                  providerName={event.providerName}
+                  description={event.description}
+                  startTime={event.startTime}
+                  endTime={event.endTime}
+                />
+              </>
+            );
+          })}
 
           {/* <ProgramCard id={0} title={"aaa"} type={"aaa"} funding={"aaa"} providerName={""} description={""} startTime="" endTime="" /> */}
         </div>

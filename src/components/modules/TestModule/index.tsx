@@ -5,11 +5,25 @@ import Value2 from "../../../../public/assets/lottie/value2.json";
 import Value3 from "../../../../public/assets/lottie/value3.json";
 import Value4 from "../../../../public/assets/lottie/value4.json";
 import { HistoryCard } from "@/components/elements/Cards/HistoryCard";
-
 import Test from "../../../../public/assets/lottie/test.json";
 import { TestCard } from "@/components/elements/Cards/TestCard";
+import { api } from "@/utils/api";
+import { useEffect, useState } from "react";
+import { TestCardProps } from "./interface";
 
 export const TestModule: React.FC = () => {
+  const { data: ielts } = api.test.getTestCategoryById.useQuery({
+    slug: "ielts",
+  });
+
+  const [testsIELTS, setTestsIELTS] = useState<TestCardProps>(null);
+
+  useEffect(() => {
+    // console.log("risa");
+    console.log(ielts);
+    setTestsIELTS(ielts);
+  }, [ielts]);
+
   return (
     <>
       {/* Hero */}
@@ -32,7 +46,7 @@ export const TestModule: React.FC = () => {
       </div>
 
       <div className="my-9 flex flex-col items-center justify-center gap-9 md:flex-row lg:flex-row">
-        <TestCard
+        {/* <TestCard
           data={{
             userId: "12312321",
             name: "wee",
@@ -51,7 +65,7 @@ export const TestModule: React.FC = () => {
             education: "Computer Science",
             expertise: "Information Retrieval",
           }}
-        />
+        /> */}
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
           <HistoryCard
             className="w-full"
@@ -214,130 +228,44 @@ export const TestModule: React.FC = () => {
 
       <h2 className="mt-10 text-center lg:px-44 lg:text-start">IELTS</h2>
       <div className="mb-10 grid items-center justify-items-center  gap-4 bg-white px-3 md:grid-cols-2 md:px-20 lg:grid-cols-3 lg:px-32">
-        <TestCard
-          data={{
-            userId: "12312321",
-            name: "wee",
-            email: "wee@mail.com",
-            ppUrl: "https://placekitten.com/900/500",
-            cvUrl: "",
-            experiences: [
-              {
-                organization: "Universitas Indonesia",
-                title: "Dosen",
-                startPeriod: "2022-01-01",
-                endPeriod: "2023-01-01",
-              },
-            ],
-            bio: "lover",
-            education: "Computer Science",
-            expertise: "Information Retrieval",
-          }}
-        />
-        <TestCard
-          data={{
-            userId: "12312321",
-            name: "wee",
-            email: "wee@mail.com",
-            ppUrl: "https://placekitten.com/900/500",
-            cvUrl: "",
-            experiences: [
-              {
-                organization: "Universitas Indonesia",
-                title: "Dosen",
-                startPeriod: "2022-01-01",
-                endPeriod: "2023-01-01",
-              },
-            ],
-            bio: "lover",
-            education: "Computer Science",
-            expertise: "Information Retrieval",
-          }}
-        />
-        <TestCard
-          data={{
-            userId: "12312321",
-            name: "wee",
-            email: "wee@mail.com",
-            ppUrl: "https://placekitten.com/900/500",
-            cvUrl: "",
-            experiences: [
-              {
-                organization: "Universitas Indonesia",
-                title: "Dosen",
-                startPeriod: "2022-01-01",
-                endPeriod: "2023-01-01",
-              },
-            ],
-            bio: "lover",
-            education: "Computer Science",
-            expertise: "Information Retrieval",
-          }}
-        />
+        {testsIELTS?.tests?.map((test) => {
+          return (
+            <>
+              <TestCard
+                className=""
+                slug={test.id}
+                title={test.name}
+                description={test.description}
+                resources={test.description}
+              />
+
+              {/* <p>{test.title}</p>
+              <p>{test.description}</p>
+              <p>{test.resources}</p> */}
+            </>
+          );
+        })}
       </div>
 
       <h2 className="text-center lg:px-44 lg:text-start">SAT</h2>
       <div className="mb-10 grid items-center justify-items-center  gap-4 bg-white px-3 md:grid-cols-2 md:px-20 lg:grid-cols-3 lg:px-32">
-        <TestCard
-          data={{
-            userId: "12312321",
-            name: "wee",
-            email: "wee@mail.com",
-            ppUrl: "https://placekitten.com/900/500",
-            cvUrl: "",
-            experiences: [
-              {
-                organization: "Universitas Indonesia",
-                title: "Dosen",
-                startPeriod: "2022-01-01",
-                endPeriod: "2023-01-01",
-              },
-            ],
-            bio: "lover",
-            education: "Computer Science",
-            expertise: "Information Retrieval",
-          }}
-        />
-        <TestCard
-          data={{
-            userId: "12312321",
-            name: "wee",
-            email: "wee@mail.com",
-            ppUrl: "https://placekitten.com/900/500",
-            cvUrl: "",
-            experiences: [
-              {
-                organization: "Universitas Indonesia",
-                title: "Dosen",
-                startPeriod: "2022-01-01",
-                endPeriod: "2023-01-01",
-              },
-            ],
-            bio: "lover",
-            education: "Computer Science",
-            expertise: "Information Retrieval",
-          }}
-        />
-        <TestCard
-          data={{
-            userId: "12312321",
-            name: "wee",
-            email: "wee@mail.com",
-            ppUrl: "https://placekitten.com/900/500",
-            cvUrl: "",
-            experiences: [
-              {
-                organization: "Universitas Indonesia",
-                title: "Dosen",
-                startPeriod: "2022-01-01",
-                endPeriod: "2023-01-01",
-              },
-            ],
-            bio: "lover",
-            education: "Computer Science",
-            expertise: "Information Retrieval",
-          }}
-        />
+        {testsIELTS?.tests?.map((test) => {
+          return (
+            <>
+              <TestCard
+                className=""
+                slug={test.id}
+                title={test.name}
+                description={test.description}
+                resources={test.description}
+              />
+
+              {/* <p>{test.title}</p>
+              <p>{test.description}</p>
+              <p>{test.resources}</p> */}
+            </>
+          );
+        })}
       </div>
       <div className="mb-20 flex flex-row items-center justify-center gap-16 bg-white px-2">
         {/* <ProgramCard id={0} title={"aaa"} type={"aaa"} funding={"aaa"} providerName={""} description={""} startTime="" endTime="" /> */}

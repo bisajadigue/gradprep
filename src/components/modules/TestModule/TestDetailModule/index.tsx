@@ -2,8 +2,29 @@ import Image from "next/image";
 import { TestDetailCard } from "@/components/elements/Cards/TestCard/TestDetailCard";
 import { InfoCard } from "@/components/elements/Cards/InfoCard";
 import { Label } from "@/components/elements/Label";
+import { useState, useEffect } from "react";
+import { api } from "@/utils/api";
+import { Test } from "../interface";
 
 export const TestDetailModule: React.FC = () => {
+  const [path, setPath] = useState<string>(""); // Provide a default value here
+  const [test, setTest] = useState<Test>();
+  const { data } = api.test.getTestById.useQuery({ testId: path });
+
+  useEffect(() => {
+    const urlParts = window.location.href.split("/");
+    const testId = urlParts[urlParts.length - 1];
+
+    if (testId) {
+      setPath(testId);
+    }
+
+    console.log(data);
+
+    setTest(data?.test);
+    console.log(test);
+  }, [path, data, test]);
+
   return (
     <>
       {/* Hero */}
@@ -22,12 +43,12 @@ export const TestDetailModule: React.FC = () => {
             <div className=" absolute -right-48 bottom-12 z-0 h-[40vh] w-[40vh] rounded-full bg-[#111692]/[.42]"></div>
             <div className=" absolute -bottom-56 -right-24 z-0 h-[64vh] w-[64vh] rounded-full bg-[#946CE8]/[.62]"></div> */}
             <h2 className="pt-5 text-center text-xl tracking-wide md:pt-12 md:text-left md:text-3xl lg:pt-12 lg:text-left lg:text-4xl">
-              Ujian Simulasi IELTS 2022
+              Ujian Simulasi {test?.name} 2022
             </h2>
             <div className="mt-8 text-white md:text-black lg:text-black">
               <div className="flex items-center justify-center gap-5 md:justify-start lg:justify-start">
                 <p>Sisa waktu:</p>
-                <Label> IELTS</Label>
+                {/* <Label> {test?.testCategoryId}</Label> */}
               </div>
               <p className="pt-2 text-center md:text-start lg:text-start ">
                 Aniati Murni Arymurthy adalah seorang dosen dan peneliti bidang

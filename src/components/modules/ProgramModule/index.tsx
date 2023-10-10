@@ -3,8 +3,24 @@ import Programs from "../../../../public/assets/lottie/program.json";
 import { ProgramCard } from "@/components/elements/Cards/ProgramCard";
 import { Button, SearchInput } from "@/components/elements";
 import { RiFilter3Line } from "react-icons/ri";
+import { useEffect, useState } from "react";
+import { api } from "@/utils/api";
+import { ProgramCardProps } from "./interface";
 
 export const ProgramModule: React.FC = () => {
+  const { data } = api.event.getAllEvent.useQuery();
+
+  const [events, setEvents] = useState<ProgramCardProps[]>([]);
+
+  useEffect(() => {
+    if (data) {
+      // console.log(data);
+      setEvents(data);
+      console.log("risaaa");
+      console.log(events);
+    }
+  }, [data, events]);
+
   return (
     <>
       {/* Hero */}
@@ -49,31 +65,22 @@ export const ProgramModule: React.FC = () => {
       </div>
 
       <div className="mb-20 flex flex-row items-center justify-center gap-16 bg-white px-2">
-        <ProgramCard
-          id={0}
-          title={""}
-          type={""}
-          funding={""}
-          providerName={""}
-          description={""}
-        />
-        <ProgramCard
-          id={0}
-          title={""}
-          type={""}
-          funding={""}
-          providerName={""}
-          description={""}
-        />
-
-        <ProgramCard
-          id={0}
-          title={""}
-          type={""}
-          funding={""}
-          providerName={""}
-          description={""}
-        />
+        {events.map((event) => {
+          return (
+            <>
+              <ProgramCard
+                id={event.id}
+                title={event.title}
+                type={event.type}
+                funding={event.funding}
+                providerName={event.providerName}
+                description={event.description}
+                startTime={event.startTime}
+                endTime={event.endTime}
+              />
+            </>
+          );
+        })}
 
         {/* <ProgramCard id={0} title={"aaa"} type={"aaa"} funding={"aaa"} providerName={""} description={""} startTime="" endTime="" /> */}
       </div>
