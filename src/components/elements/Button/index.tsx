@@ -18,15 +18,21 @@ export const Button: React.FC<ButtonProps> = ({
         onClick={onClick}
         disabled={disabled || isLoading}
         type={type}
-        className={`${className} relative inline-flex items-center overflow-hidden rounded-[15px] bg-primary px-[36px] py-[12px] active:bg-[#603994]`}
+        className={`
+          ${className} relative inline-flex items-center gap-x-2 overflow-hidden rounded-[15px] px-[20px] py-[12px] 
+          ${
+            variant === "primary"
+              ? "bg-primary  text-white active:bg-[#603994]"
+              : ""
+          }
+          ${
+            variant === "white"
+              ? "border  border-primary bg-white text-primary active:bg-gray-100"
+              : ""
+          }
+        `}
       >
-        <p
-          className="
-            font-p-paragraph relative mt-[-1.00px] w-fit font-[number:var(--p-paragraph-font-weight)] text-white
-          "
-        >
-          {children}
-        </p>
+        {children}
       </button>
     </>
   );

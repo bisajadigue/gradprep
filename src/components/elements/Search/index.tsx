@@ -10,12 +10,12 @@ export const SearchInput: React.FC<InputProps> = ({
   return (
     <>
       <div
-        className={`${className} flex h-fit w-full rounded-[15px] border-2 border-[#6d00f9] px-[36px] text-center`}
+        className={`${className} flex h-fit w-full rounded-[15px] border-2 border-[#6d00f9] bg-white px-[36px] text-center`}
       >
         <input
           placeholder={placeholder || "Placeholder..."}
           type={inputType || "text"}
-          className="z-10 py-[12px]"
+          className="z-10 w-full py-[12px]"
         />
         <button onClick={onClick} className="z-10">
           <RiSearch2Line

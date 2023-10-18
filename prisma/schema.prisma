@@ -76,7 +76,7 @@ model VerificationToken {
 
 enum UserRole {
     MENTOR
-    USER
+    STUDENT
 }
 
 model Mentor {
@@ -84,15 +84,17 @@ model Mentor {
     experiences Experience[]
     expertise   String?
     cvUrl       String?
+    calendlyUrl String?
     user        User         @relation(fields: [userId], references: [id])
     bookings    Booking[]
 }
 
 model Student {
-    userId       String        @id @unique
-    testAttempts TestAttempt[]
-    user         User          @relation(fields: [userId], references: [id])
-    bookings     Booking[]
+    userId          String            @id @unique
+    testAttempts    TestAttempt[]
+    user            User              @relation(fields: [userId], references: [id])
+    bookings        Booking[]
+    QuestionAttempt QuestionAttempt[]
 }
 
 model Experience {
@@ -114,39 +116,41 @@ model TestCategory {
 }
 
 model Test {
-    id             String       @id @default(uuid())
+    id             String        @id @default(uuid())
     name           String
     description    String
     instructions   String
     timer          Int
     testCategoryId String
-    testCategory   TestCategory @relation(fields: [testCategoryId], references: [slug])
+    testCategory   TestCategory  @relation(fields: [testCategoryId], references: [slug])
     questions      Question[]
+    attempts       TestAttempt[]
 }
 
 model Question {
-    id          String            @id @default(cuid())
-    title       String
-    embed       String?
-    optionA     String
-    optionB     String
-    optionC     String
-    optionD     String
-    answer      Choice
-    dateCreated DateTime          @default(now())
-    test        Test              @relation(fields: [testId], references: [id])
-    testId      String
-    attempts    QuestionAttempt[]
+    id       String            @id @default(cuid())
+    title    String
+    embed    String?
+    optionA  String
+    optionB  String
+    optionC  String
+    optionD  String
+    answer   Choice
+    test     Test              @relation(fields: [testId], references: [id])
+    testId   String
+    attempts QuestionAttempt[]
 }
 
 model TestAttempt {
     id               String            @id @default(cuid())
-    testld           String
-    score            Int
-    startTime        DateTime
-    student          Student           @relation(fields: [studentId], references: [userId])
+    testId           String
     studentId        String
+    score            Int               @default(0)
+    startTime        DateTime          @default(now())
     questionAttempts QuestionAttempt[]
+    isSubmitted      Boolean?          @default(false)
+    student          Student           @relation(fields: [studentId], references: [userId])
+    test             Test              @relation(fields: [testId], references: [id])
 }
 
 model QuestionAttempt {
@@ -156,6 +160,8 @@ model QuestionAttempt {
     questionId    String
     testAttempt   TestAttempt @relation(fields: [testAttemptId], references: [id])
     testAttemptId String
+    studentId     String
+    student       Student     @relation(fields: [studentId], references: [userId])
 }
 
 enum Choice {
@@ -166,14 +172,15 @@ enum Choice {
 }
 
 model Booking {
-    id        String   @id @default(uuid())
-    mentorId  String
-    menteeId  String
-    startTime DateTime
-    link      String
-
-    mentor Mentor  @relation(fields: [mentorId], references: [userId])
-    mentee Student @relation(fields: [menteeId], references: [userId])
+    id         String   @id @default(uuid())
+    mentorId   String
+    menteeId   String
+    startTime  DateTime
+    link       String?
+    isApproved Boolean? @default(false)
+    isRejected Boolean? @default(false)
+    mentor     Mentor   @relation(fields: [mentorId], references: [userId])
+    mentee     Student  @relation(fields: [menteeId], references: [userId])
 }
 
 model Event {
@@ -183,6 +190,8 @@ model Event {
     funding      String
     providerName String
     description  String
+    eligibility  String?
+    benefits     String?
     startTime    DateTime
     endTime      DateTime
 }
