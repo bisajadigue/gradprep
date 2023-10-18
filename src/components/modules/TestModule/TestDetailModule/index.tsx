@@ -74,7 +74,7 @@ export const TestDetailModule: React.FC = () => {
           </p>
         </div>
         <div className="flex justify-center">
-          <TestDetailCard />
+          <TestDetailCard id={test?.id} />
         </div>
       </div>
       <div className="my-14 flex flex-col items-center justify-center gap-5 px-3">

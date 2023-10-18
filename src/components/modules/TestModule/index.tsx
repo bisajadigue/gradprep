@@ -16,11 +16,23 @@ export const TestModule: React.FC = () => {
     slug: "ielts",
   });
 
+  const { data: sat } = api.test.getTestCategoryById.useQuery({
+    slug: "sat",
+  });
+
+  const { data: gmat } = api.test.getTestCategoryById.useQuery({
+    slug: "gmat",
+  });
+
   const [testsIELTS, setTestsIELTS] = useState<TestCardProps>(null);
+  const [testsSAT, setTestsSAT] = useState<TestCardProps>(null);
+  const [testsGMAT, setTestsGMAT] = useState<TestCardProps>(null);
 
   useEffect(() => {
     // console.log("risa");
     console.log(ielts);
+    setTestsGMAT(gmat);
+    setTestsSAT(sat);
     setTestsIELTS(ielts);
   }, [ielts]);
 
@@ -249,7 +261,31 @@ export const TestModule: React.FC = () => {
 
       <h2 className="text-center lg:px-44 lg:text-start">SAT</h2>
       <div className="mb-10 grid items-center justify-items-center  gap-4 bg-white px-3 md:grid-cols-2 md:px-20 lg:grid-cols-3 lg:px-32">
-        {testsIELTS?.tests?.map((test) => {
+        {testsSAT?.tests?.map((test) => {
+          return (
+            <>
+              <TestCard
+                className=""
+                slug={test.id}
+                title={test.name}
+                description={test.description}
+                resources={test.description}
+              />
+
+              {/* <p>{test.title}</p>
+              <p>{test.description}</p>
+              <p>{test.resources}</p> */}
+            </>
+          );
+        })}
+      </div>
+      <div className="mb-20 flex flex-row items-center justify-center gap-16 bg-white px-2">
+        {/* <ProgramCard id={0} title={"aaa"} type={"aaa"} funding={"aaa"} providerName={""} description={""} startTime="" endTime="" /> */}
+      </div>
+
+      <h2 className="text-center lg:px-44 lg:text-start">GMAT</h2>
+      <div className="mb-10 grid items-center justify-items-center  gap-4 bg-white px-3 md:grid-cols-2 md:px-20 lg:grid-cols-3 lg:px-32">
+        {testsGMAT?.tests?.map((test) => {
           return (
             <>
               <TestCard

@@ -12,7 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 type validOptions = "a" | "b" | "c" | "d";
 
-export const QuestionModule: React.FC = () => {
+export const ResultModule: React.FC = () => {
   const [path, setPath] = useState<string>("");
 
   const [path1, setPath1] = useState<string>("");
@@ -146,47 +146,6 @@ export const QuestionModule: React.FC = () => {
   const { data: testbyid } = api.test.getTestById.useQuery({
     testId: testId,
   });
-
-  // const onSubmit = async () => {
-  //   console.log(optionA, "optionA");
-  //   console.log(optionB, "optionB");
-
-  //   console.log(optionC, "optionC");
-
-  //   console.log(optionD, "optionD");
-
-  //   console.log("mulai");
-  //   console.log(testbyid?.testAttempt?.id);
-  //   // console.log(question.question.id);
-  //   console.log(answer);
-
-  //   // Ensure testAttemptId and questionId are not undefined
-  //   const testAttemptId = testbyid?.testAttempt?.id ?? "";
-  //   const questionId = question?.question?.id ?? "";
-
-  //   // Ensure answer is one of the expected string literals
-  //   const validAnswers = ["a", "b", "c", "d"];
-
-  //   const choiced = clicked === null ?? "";
-
-  //   console.log("heh");
-  //   console.log("path", testbyid);
-  //   console.log("test", testAttemptId);
-  //   console.log("quest", questionId);
-  //   console.log("choiced", choiced);
-
-  //   await createTestMutation.mutateAsync({
-  //     testAttemptId,
-  //     questionId,
-  //     choiced: clicked,
-  //   });
-
-  //   setAnswer("");
-
-  //   setTimeout(() => {
-  //     void router.push(`/questions/${getquestions[number]?.id}`);
-  //   }, 1000);
-  // };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -379,32 +338,28 @@ export const QuestionModule: React.FC = () => {
               Previous
             </a>
           </Button>
-          {last ? (
-            <Button variant={"primary"} size={"md"}>
-              <a
-                // onClick={(e) => void handleNext(e)}
-                href={`http://localhost:3000/questions/result`}
-                className="hover:white"
-              >
-                Kumpulkan
-              </a>
-            </Button>
-          ) : (
-            <Button variant={"primary"} size={"md"}>
-              <a
-                onClick={(e) => void handleNext(e)}
-                // href={`http://localhost:3000/questions/${questions[number]?.id}`}
-                className="hover:white"
-              >
-                Next
+          <Button variant={"primary"} size={"md"}>
+            <a
+              onClick={(e) => void handleNext(e)}
+              // href={`http://localhost:3000/questions/${questions[number]?.id}`}
+              className="hover:white"
+            >
+              {last ? "Kumpulkan" : "Next"}
+              {last ? (
+                <AiOutlineCheck
+                  color="white"
+                  size={24}
+                  className="my-auto active:scale-[80%]"
+                />
+              ) : (
                 <GrNext
                   color="white"
                   size={24}
                   className="my-auto active:scale-[80%]"
                 />
-              </a>
-            </Button>
-          )}
+              )}
+            </a>
+          </Button>
         </div>
       </div>
     </>
