@@ -44,4 +44,18 @@ export const mentorRouter = createTRPCRouter({
         totalPages,
       };
     }),
+
+    getBooking: publicProcedure.input(
+      z.object({
+        mentorId: z.string(),
+      }),
+    ).query(async ({ input, ctx }) => {
+      const bookings = await ctx.db.booking.count({
+        where: {
+          mentorId: input.mentorId,
+          isApproved: true
+        }
+      });
+      return bookings;
+    }),
 });
