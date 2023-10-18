@@ -1,12 +1,81 @@
 import { Button } from "@/components/elements";
 import { Input } from "@/components/elements/Input";
 import Head from "next/head";
-import { useState } from "react";
-import { Toaster } from "react-hot-toast";
+import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { RiArrowLeftLine, RiArrowRightLine } from "react-icons/ri";
+import { type AddEducation, type AddProfile } from "./interface";
+import Link from "next/link";
+import { api } from "@/utils/api";
+import { useRouter } from "next/router";
+
+const defaultProfile: AddProfile = {
+  bio: "",
+  education: [],
+  role: "MENTOR",
+  experiences: [],
+  expertise: "",
+  calendlyUrl: ""
+}
+
+const defaultEducation: AddEducation = {
+  school: "",
+  degree: "",
+  field: ""
+}
 
 export default function OnboardingPage() {
   const [pageNum, setPageNum] = useState<number>(1);
+  const [profileData, setProfileData] = useState<AddProfile>(defaultProfile);
+  const submitOnboardingData = api.userData.addProfile.useMutation()
+  const router = useRouter()
+
+  const removeEducation = (index: number) => {
+    setProfileData((prev) => {
+      const eds = [...prev.education]
+      eds.splice(index, 1)
+      return {...prev, education: eds};
+    })
+  }
+
+  const addNewEducation = () => {
+    setProfileData((prev) => {
+      const eds = [...prev.education]
+      eds.push(defaultEducation);
+      return {...prev, education: eds};
+    })
+  }
+
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  const handleEducationChange = (event: any, index: any) => {
+    setProfileData(prev => {
+      const eds = [...prev.education];
+      const ed:AddEducation = {...eds[index]!};
+      ed[event.target.name as "school" | "degree" | "field"] = event.target.value;
+      eds[index] = ed;
+      console.log(eds);
+
+      return {...prev, education: eds};
+    });
+  }
+
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  const handleFormChange = (event: any) => {
+    console.log(event)
+    setProfileData(prev => ({...prev, [event.target.name]: event.target.value}));
+  }
+  
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  const handleFormSubmit = (event: any) => {
+    event.preventDefault();
+    console.log(event)
+    submitOnboardingData.mutate(profileData);
+  }
+
+  useEffect(() => {
+    void (submitOnboardingData.isSuccess && router.push("/"))
+    void (submitOnboardingData.isError && toast.error("Ada data yang salah atau tidak lengkap."))
+  }, [router, submitOnboardingData.isError, submitOnboardingData.isSuccess])
 
   return (
     <>
@@ -32,18 +101,130 @@ export default function OnboardingPage() {
         {/* form */}
         <div className="relative bg-white text-black">
           <div className="container mx-auto flex flex-col items-center justify-center min-h-[60vh] gap-4">
-            <h3 className=" font-light">
-              Ceritakan sedikit tentang dirimu.
-            </h3>
-            <Input placeholder="Isi dengan bio singkat..." className="min-w-[40vw]"/>
-            <div className="flex gap-4 mt-12">
-              <Button variant={"white"} size={"md"}>
-                <RiArrowLeftLine /><p>Previous</p>
-              </Button>
-              <Button variant={"primary"} size={"md"} className="px-9">
-                <p>Next</p> <RiArrowRightLine />
-              </Button>
-            </div>
+            <form className="flex flex-col" onSubmit={handleFormSubmit}>
+
+            { pageNum === 1 && <>
+              <h3 className=" font-light">
+                Ceritakan sedikit tentang dirimu.
+              </h3>
+              <Input 
+                placeholder="Isi dengan bio singkat..." 
+                className="min-w-[40vw]" 
+                value={profileData.bio} 
+                onChange={handleFormChange}
+                name="bio"
+              />
+            </>}
+
+            { pageNum === 2 && <>
+              <h3 className="font-light">
+                Lengkapi latar belakang pendidikanmu.
+              </h3>
+              { profileData.education.map((education, i) => (
+                <div className="flex my-2 gap-x-2" key={i}>
+                  <p className="flex bg-gray-200 rounded-full p-1 mx-1 my-auto w-[28px] h-[28px] text-center justify-center items-center">{i+1}</p>
+                  <Input 
+                    placeholder={`Sekolah / Institusi`} 
+                    // className="min-w-[40vw]" 
+                    value={profileData.education[i]?.school} 
+                    onChange={(e) => handleEducationChange(e, i)}
+                    name={`school`}
+                  />
+                  <Input 
+                    placeholder={`Jurusan`} 
+                    // className="min-w-[40vw]" 
+                    value={profileData.education[i]?.degree} 
+                    onChange={(e) => handleEducationChange(e, i)}
+                    name={`degree`}
+                  />
+                  <Input 
+                    placeholder={`Bidang / Industri`} 
+                    // className="min-w-[40vw]" 
+                    value={profileData.education[i]?.field} 
+                    onChange={(e) => handleEducationChange(e, i)}
+                    name={`field`}
+                  />
+                <Button variant={"white"} size={"md"} className="mx-auto w-fit" type="button" onClick={() => removeEducation(i)}>–</Button>
+                </div>
+              ))}
+              <div className="flex flex-row justify-stretch">
+                <Button variant={"primary"} size={"md"} className="mx-auto w-fit" type="button" onClick={() => addNewEducation()}>+</Button>
+              </div>
+              
+            </>}
+
+            { pageNum === 3 && <>
+              <h3>
+                Apa tujuanmu mendaftar di GradPrep?
+              </h3>
+              <div className="flex flex-col gap-2 mt-4" onChange={handleFormChange} >
+                <div className="flex gap-2">
+                  <input name="role" type="radio" value={"STUDENT"} id="mentee1"/>
+                  <label htmlFor="mentee1">Belajar dan mengembangkan diri</label>
+                </div>
+                <div className="flex gap-2">
+                  <input name="role" type="radio" value={"STUDENT"} id="mentee2"/>
+                  <label htmlFor="mentee2">Mempersiapkan diri untuk mengambil program S2 atau S3</label>
+                </div>
+                <div className="flex gap-2">
+                  <input name="role" type="radio" value={"MENTOR"} id="mentor"/>
+                  <label htmlFor="mentor">Menjadi mentor</label>
+                </div>
+              </div>
+            </>}
+
+            {pageNum === 4 && profileData.role === "STUDENT" && <>
+              <h3>Review Data</h3>
+              <Button variant={"white"} size={"md"}>Submit</Button>
+            </>}
+
+            {pageNum === 4 && profileData.role === "MENTOR" && <>
+              <h3>Ceritakan sedikit tentang bidang keahlianmu.</h3>
+              <Input 
+                placeholder="Apa saja keahlianmu? e.g. teknik sipil, kriptografi, etc." 
+                className="min-w-[40vw]" 
+                value={profileData.expertise} 
+                onChange={handleFormChange}
+                name="expertise"
+              />
+            </>}
+
+            {pageNum === 5 && profileData.role === "MENTOR" && <>
+              <h3 className="text-center">Satu hal lagi.</h3>
+              <p className="max-w-[60%] mx-auto text-center my-2">
+                Kami membutuhkan link Calendly (seperti 
+                <Link className=" text-blue-700" href={"https://calendly.com/veivelpattiwael/demo-tp-gvp"}> ini </Link> 
+                dan 
+                <Link className=" text-blue-700" href={"https://calendly.com/zhikai-kwtech/chat-with-interns"}> ini</Link>)
+                darimu agar calon mentee dapat melakukan bookin denganmu.
+              </p>
+              <Input 
+                placeholder="URL Calendly"  
+                className="w-[60%] mx-auto"
+                value={profileData.calendlyUrl} 
+                onChange={handleFormChange}
+                name="calendlyUrl"
+              />
+            </>}
+
+            {pageNum === 6 && profileData.role === "MENTOR" && <>
+              <h3>Review Data [2]</h3>
+              <Button variant={"white"} size={"md"}>Submit</Button>
+            </>}
+
+              <div className="flex gap-4 mt-12 justify-center">
+                { pageNum > 1 && <Button variant={"white"} size={"md"} type="button" onClick={() => { setPageNum((prev) => prev - 1)}}>
+                  <RiArrowLeftLine /><p>Previous</p>
+                </Button> }
+                { 
+                ((pageNum < 4 && profileData.role === "STUDENT") ||
+                (pageNum < 6 && profileData.role === "MENTOR")) &&
+                <Button variant={"primary"} size={"md"} className="px-9" type="button" onClick={() => { setPageNum((prev) => prev + 1)}}>
+                  <p>Next</p> <RiArrowRightLine />
+                </Button> }
+              </div> 
+
+              </form>
           </div>
         </div>
       </main>
