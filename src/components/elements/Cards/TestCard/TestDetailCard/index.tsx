@@ -14,9 +14,9 @@ export const TestDetailCard: React.FC<TestDetailCardProps> = ({
         <p>120 menit</p>
         <h3 className="font-bold md:text-lg lg:text-xl">Jumlah Pertanyaan</h3>
         <p>25 pertanyaan</p>
-        <div className="my-3 justify-center">
-          <Button className="w-24" variant={"primary"} size={"md"}>
-            Mulai
+        <div className="my-3 justify-center text-center">
+          <Button className="w-24 text-center" variant={"primary"} size={"md"}>
+            <p className="text-center">Mulai Tes</p>
           </Button>
         </div>
 

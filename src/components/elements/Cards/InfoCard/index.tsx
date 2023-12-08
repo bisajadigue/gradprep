@@ -15,19 +15,19 @@ export const InfoCard: React.FC<InfoCardProps> = ({ className }) => {
           Kenapa harus ikut IELTS Prediction Test dengan GradPrep?
         </h3>
         <p className="my-2 flex items-center gap-2">
-          <BsFillCheckCircleFill size={32} />
+          <BsFillCheckCircleFill size={25} />
           Praktis karena tes dilakukan secara online melalui platform GradPrep
         </p>
         <p className="flex items-center gap-2">
-          <BsFillCheckCircleFill size={32} />
+          <BsFillCheckCircleFill size={25} />
           Praktis karena tes dilakukan secara online melalui platform GradPrep
         </p>
         <p className="my-2 flex items-center gap-2">
-          <BsFillCheckCircleFill size={32} />
+          <BsFillCheckCircleFill size={25} />
           Praktis karena tes dilakukan secara online melalui platform GradPrep
         </p>
         <p className="flex items-center gap-2">
-          <BsFillCheckCircleFill size={32} />
+          <BsFillCheckCircleFill size={25} />
           Praktis karena tes dilakukan secara online melalui platform GradPrep
         </p>
       </GenericCard>

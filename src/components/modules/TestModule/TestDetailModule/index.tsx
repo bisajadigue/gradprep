@@ -7,7 +7,14 @@ export const TestDetailModule: React.FC = () => {
   return (
     <>
       {/* Hero */}
-      <div className=" relative flex h-full flex-col items-center justify-center bg-primary pt-40 text-white md:flex-row md:pt-60 lg:pt-60">
+      <div
+        className=" relative flex h-full flex-col items-center justify-center  pt-40 text-white md:flex-row md:pt-60 lg:pt-60"
+        style={{
+          backgroundImage: `url(/hero.svg)`,
+          backgroundSize: "cover", // Sesuaikan sesuai kebutuhan Anda
+          backgroundPosition: "center", // Sesuaikan sesuai kebutuhan Anda
+        }}
+      >
         <div className="justify-left container flex flex-col items-center sm:relative md:absolute md:flex-row lg:absolute lg:flex-row">
           <Image
             className="mx-3 h-[190px] w-[200px] rounded-[15px] object-cover group-hover:scale-105 lg:mx-14"
@@ -26,7 +33,7 @@ export const TestDetailModule: React.FC = () => {
             </h2>
             <div className="mt-8 text-white md:text-black lg:text-black">
               <div className="flex items-center justify-center gap-5 md:justify-start lg:justify-start">
-                <p>Sisa waktu:</p>
+                <p>Kategori:</p>
                 <Label> IELTS</Label>
               </div>
               <p className="pt-2 text-center md:text-start lg:text-start ">

@@ -3,12 +3,20 @@ import { Button } from "@/components/elements";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { AiOutlineCheck } from "react-icons/ai";
 import { Label } from "@/components/elements/Label";
+import { Breadcrumb } from "flowbite-react";
 
 export const QuestionModule: React.FC = () => {
   return (
     <>
       {/* Hero */}
-      <div className=" relative flex h-full flex-col items-center justify-center bg-primary pt-40 text-white md:flex-row md:pt-60 lg:pt-60">
+      <div
+        className=" relative flex h-full flex-col items-center justify-center pt-40 text-white md:flex-row md:pt-60 lg:pt-60"
+        style={{
+          backgroundImage: `url(/hero.svg)`,
+          backgroundSize: "cover", // Sesuaikan sesuai kebutuhan Anda
+          backgroundPosition: "center", // Sesuaikan sesuai kebutuhan Anda
+        }}
+      >
         <div className="justify-left container flex flex-col items-center sm:relative md:absolute md:flex-row lg:absolute lg:flex-row">
           <Image
             className="mr-5 h-[190px] w-[200px] rounded-[15px] object-cover group-hover:scale-105"
@@ -39,7 +47,7 @@ export const QuestionModule: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="my-3 flex justify-center pl-0 pt-0 md:justify-start md:pl-72 md:pt-20 lg:justify-start lg:pl-72 lg:pt-20">
+      <div className="my-3 flex justify-center pl-0 pt-0 md:justify-start md:pl-72 md:pt-20 lg:ml-6 lg:justify-start lg:pt-20">
         <Button variant={"primary"} size={"md"}>
           Kumpulkan
           <AiOutlineCheck

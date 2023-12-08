@@ -4,12 +4,20 @@ import { ProgramCard } from "@/components/elements/Cards/ProgramCard";
 import { Button, SearchInput } from "@/components/elements";
 import { RiFilter3Line } from "react-icons/ri";
 import Eligible from "../../../../../public/assets/lottie/eligibility.json";
+import { Breadcrumb } from "flowbite-react";
 
 export const ProgramDetailModule: React.FC = () => {
   return (
     <>
       {/* Hero */}
-      <div className="md:px- relative flex h-full flex-col items-center justify-center bg-primary pt-32 text-white md:flex-row ">
+      <div
+        className="relative flex h-full flex-col items-center justify-center pt-32 text-white md:flex-row "
+        style={{
+          backgroundImage: `url(/hero.svg)`,
+          backgroundSize: "cover", // Sesuaikan sesuai kebutuhan Anda
+          backgroundPosition: "center", // Sesuaikan sesuai kebutuhan Anda
+        }}
+      >
         <div className="container items-center md:flex-row lg:flex-row">
           <div className="flex flex-col items-center justify-between px-3 py-8 md:flex-row lg:flex-row">
             {/* <div className=" absolute -left-32 -top-48 z-0 h-[80vh] w-[80vh] rounded-full bg-[#5056ED]/[.42]"></div>
@@ -17,6 +25,11 @@ export const ProgramDetailModule: React.FC = () => {
             <div className=" absolute -right-48 bottom-12 z-0 h-[40vh] w-[40vh] rounded-full bg-[#111692]/[.42]"></div>
             <div className=" absolute -bottom-56 -right-24 z-0 h-[64vh] w-[64vh] rounded-full bg-[#946CE8]/[.62]"></div> */}
             <div className="text-center md:text-left lg:text-left">
+              <Breadcrumb className="mb-3">
+                Home
+                <Breadcrumb.Item>Beasiswa</Breadcrumb.Item>
+                <Breadcrumb.Item>Beasiswa LPDP</Breadcrumb.Item>
+              </Breadcrumb>
               <h2 className="text-2xl tracking-wide md:text-3xl lg:text-4xl">
                 Beasiswa LPDP
               </h2>
