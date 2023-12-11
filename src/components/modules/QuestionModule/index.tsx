@@ -3,12 +3,20 @@ import { Button } from "@/components/elements";
 import { GrNext, GrPrevious } from "react-icons/gr";
 import { AiOutlineCheck } from "react-icons/ai";
 import { Label } from "@/components/elements/Label";
+import { Breadcrumb } from "flowbite-react";
 
 export const QuestionModule: React.FC = () => {
   return (
     <>
       {/* Hero */}
-      <div className=" relative flex h-full flex-col items-center justify-center bg-primary pt-40 text-white md:flex-row md:pt-60 lg:pt-60">
+      <div
+        className=" relative flex h-full flex-col items-center justify-center pt-40 text-white md:flex-row md:pt-60 lg:pt-60"
+        style={{
+          backgroundImage: `url(/hero.svg)`,
+          backgroundSize: "cover", // Sesuaikan sesuai kebutuhan Anda
+          backgroundPosition: "center", // Sesuaikan sesuai kebutuhan Anda
+        }}
+      >
         <div className="justify-left container flex flex-col items-center sm:relative md:absolute md:flex-row lg:absolute lg:flex-row">
           <Image
             className="mr-5 h-[190px] w-[200px] rounded-[15px] object-cover group-hover:scale-105"
@@ -39,7 +47,7 @@ export const QuestionModule: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="my-3 flex justify-center pl-0 pt-0 md:justify-start md:pl-72 md:pt-20 lg:justify-start lg:pl-72 lg:pt-20">
+      <div className="my-3 flex justify-center pl-0 pt-0 md:justify-start md:pl-72 md:pt-20 lg:ml-6 lg:justify-start lg:pt-20">
         <Button variant={"primary"} size={"md"}>
           Kumpulkan
           <AiOutlineCheck
@@ -53,12 +61,15 @@ export const QuestionModule: React.FC = () => {
         <div>
           <h3 className="mb-4 text-center">Question 1/5</h3>
           <p>
-            Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, as
-            part of a protest against a bus company that refused to employ black
-            and Asian drivers in which UK city? Pertanyaan ini bisa dibuat lebih
-            panjang lagi tapi gue sedang malas.{" "}
+            For many people, a good night sleep is undervalued. Sleep plays a
+            crucial role in maintaining physical health and emotional
+            well-being. Lack of sleep can have serious consequences on a person
+            ability to function effectively during the day.
           </p>
-          <p className="mt-5">Pilih jawaban yang paling tepat.</p>
+          <p className="mt-5 font-bold">
+            According to the passage, what are the consequences of lack of
+            sleep?
+          </p>
         </div>
         <div>
           <div className="flex flex-col justify-start">
@@ -69,7 +80,7 @@ export const QuestionModule: React.FC = () => {
                   className="form-radio h-5 w-5 text-gray-600"
                   checked={false}
                 />
-                <span className="ml-2 text-gray-700">label</span>
+                <span className="ml-2 text-gray-700">Improved focus</span>
               </label>
 
               <label className="mt-3 inline-flex items-center">
@@ -78,7 +89,7 @@ export const QuestionModule: React.FC = () => {
                   className="form-radio h-5 w-5 text-red-600"
                   checked={true}
                 />
-                <span className="ml-2 text-gray-700">label</span>
+                <span className="ml-2 text-gray-700">Emotional well-being</span>
               </label>
 
               <label className="mt-3 inline-flex items-center">
@@ -87,7 +98,9 @@ export const QuestionModule: React.FC = () => {
                   className="form-radio h-5 w-5 text-orange-600"
                   checked={false}
                 />
-                <span className="ml-2 text-gray-700">label</span>
+                <span className="ml-2 text-gray-700">
+                  Inability to function effectively
+                </span>
               </label>
 
               <label className="mt-3 inline-flex items-center">
@@ -96,7 +109,9 @@ export const QuestionModule: React.FC = () => {
                   className="form-radio h-5 w-5 text-yellow-600"
                   checked={false}
                 />
-                <span className="ml-2 text-gray-700">label</span>
+                <span className="ml-2 text-gray-700">
+                  Physical health benefits
+                </span>
               </label>
             </div>
           </div>

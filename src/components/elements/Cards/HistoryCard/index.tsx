@@ -17,7 +17,10 @@ export const HistoryCard: React.FC<MentorCardProps> = ({ className, data }) => {
           height={260}
           className="mr-4 h-[100px] w-[120px] rounded-[15px] object-cover group-hover:scale-105"
         />
-        <h4>{data.name}</h4>
+        <div className="flex flex-col">
+          <h3>{data.name}</h3>
+          <h4>Score: {data.email}</h4>
+        </div>
       </GenericCard>
     </>
   );

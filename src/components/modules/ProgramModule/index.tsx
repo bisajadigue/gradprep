@@ -8,9 +8,16 @@ export const ProgramModule: React.FC = () => {
   return (
     <>
       {/* Hero */}
-      <div className="relative flex h-full flex-col items-center justify-center bg-primary pt-32 text-white md:flex-row">
+      <div
+        className="relative flex h-full flex-col items-center justify-center pt-32 text-white md:flex-row"
+        style={{
+          backgroundImage: `url(/hero1.svg)`,
+          backgroundSize: "cover", // Sesuaikan sesuai kebutuhan Anda
+          backgroundPosition: "center", // Sesuaikan sesuai kebutuhan Anda
+        }}
+      >
         <div className="container flex flex-col items-center justify-center md:flex-row lg:flex-row">
-          <div className="px-3 text-center ">
+          <div className="px-3 text-left ">
             {/* <div className=" absolute -left-32 -top-48 z-0 h-[80vh] w-[80vh] rounded-full bg-[#5056ED]/[.42]"></div>
             <div className=" absolute -left-40 top-64 z-0 h-[50vh] w-[50vh] rounded-full bg-[#111692]/[.42]"></div>
             <div className=" absolute -right-48 bottom-12 z-0 h-[40vh] w-[40vh] rounded-full bg-[#111692]/[.42]"></div>
@@ -30,25 +37,27 @@ export const ProgramModule: React.FC = () => {
         </div>
       </div>
       <div className="my-10 flex flex-row items-center justify-center gap-5 px-32">
-        <SearchInput className="4/5 w-full" />
+        <SearchInput
+          placeholder="Cari berdasarkan kata kunci"
+          className="4/5 w-full"
+        />
         <Button
           className="w-1/5 border-2  border-solid border-primary bg-white text-primary"
           variant={"primary"}
           size={"md"}
         >
-          Tambah Filter
-          {/* <div className="flex-between flex items-center justify-center">
-            Tambah Filter */}
-          <RiFilter3Line
-            color="black"
-            size={24}
-            className="my-auto active:scale-[80%]"
-          />
-          {/* </div> */}
+          <div className="flex-between flex items-center justify-center text-primary">
+            Tambah Filter
+            <RiFilter3Line
+              color="purple"
+              size={24}
+              className="my-auto ml-5 active:scale-[80%]"
+            />
+          </div>
         </Button>
       </div>
 
-      <div className="mb-20 flex flex-row items-center justify-center gap-16 bg-white px-2">
+      <div className="mx-32 mb-20 grid grid-cols-3 items-center justify-center gap-10 bg-white px-2">
         <ProgramCard
           id={0}
           title={""}
@@ -65,7 +74,30 @@ export const ProgramModule: React.FC = () => {
           providerName={""}
           description={""}
         />
-
+        <ProgramCard
+          id={0}
+          title={""}
+          type={""}
+          funding={""}
+          providerName={""}
+          description={""}
+        />
+        <ProgramCard
+          id={0}
+          title={""}
+          type={""}
+          funding={""}
+          providerName={""}
+          description={""}
+        />
+        <ProgramCard
+          id={0}
+          title={""}
+          type={""}
+          funding={""}
+          providerName={""}
+          description={""}
+        />
         <ProgramCard
           id={0}
           title={""}
