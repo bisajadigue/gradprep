@@ -29,17 +29,19 @@ export const TestDetailModule: React.FC = () => {
             <div className=" absolute -right-48 bottom-12 z-0 h-[40vh] w-[40vh] rounded-full bg-[#111692]/[.42]"></div>
             <div className=" absolute -bottom-56 -right-24 z-0 h-[64vh] w-[64vh] rounded-full bg-[#946CE8]/[.62]"></div> */}
             <h2 className="pt-5 text-center text-xl tracking-wide md:pt-12 md:text-left md:text-3xl lg:pt-12 lg:text-left lg:text-4xl">
-              Ujian Simulasi IELTS 2022
+              Ujian Simulasi IELTS Beasiswa Fullbright 2023
             </h2>
             <div className="mt-8 text-white md:text-black lg:text-black">
               <div className="flex items-center justify-center gap-5 md:justify-start lg:justify-start">
                 <p>Kategori:</p>
-                <Label> IELTS</Label>
+                <Label> IELTS Writing</Label>
               </div>
               <p className="pt-2 text-center md:text-start lg:text-start ">
-                Aniati Murni Arymurthy adalah seorang dosen dan peneliti bidang
-                Pattern Recognition, Image Processing, dan Spatial Data di
-                Fasilkom UI.
+                Peserta akan diminta untuk menulis laporan (report) atau surat
+                berdasarkan data yang diberikan. Pada Task 1 Academic, peserta
+                diminta untuk menganalisis grafik, diagram, atau tabel,
+                sedangkan pada Task 1 General Training, peserta diminta untuk
+                menulis surat berdasarkan situasi tertentu.
               </p>
             </div>
           </div>

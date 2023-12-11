@@ -21,10 +21,7 @@ export const TestCard: React.FC<MentorCardProps> = ({ className, data }) => {
           />
           <h4 className="text-xl font-bold">{data.name}</h4>
         </div>
-        <div className="my-4 flex w-20 flex-col gap-2">
-          <Label>XXX</Label>
-          <Label>XXX</Label>
-        </div>
+        <div className="my-4 flex w-20 flex-col gap-2"></div>
 
         <div className="flex items-center gap-x-2">
           <p>{data.experiences[0]?.title}</p>

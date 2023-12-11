@@ -61,12 +61,15 @@ export const QuestionModule: React.FC = () => {
         <div>
           <h3 className="mb-4 text-center">Question 1/5</h3>
           <p>
-            Guy Bailey, Roy Hackett and Paul Stephenson made history in 1963, as
-            part of a protest against a bus company that refused to employ black
-            and Asian drivers in which UK city? Pertanyaan ini bisa dibuat lebih
-            panjang lagi tapi gue sedang malas.{" "}
+            For many people, a good night sleep is undervalued. Sleep plays a
+            crucial role in maintaining physical health and emotional
+            well-being. Lack of sleep can have serious consequences on a person
+            ability to function effectively during the day.
           </p>
-          <p className="mt-5">Pilih jawaban yang paling tepat.</p>
+          <p className="mt-5 font-bold">
+            According to the passage, what are the consequences of lack of
+            sleep?
+          </p>
         </div>
         <div>
           <div className="flex flex-col justify-start">
@@ -77,7 +80,7 @@ export const QuestionModule: React.FC = () => {
                   className="form-radio h-5 w-5 text-gray-600"
                   checked={false}
                 />
-                <span className="ml-2 text-gray-700">label</span>
+                <span className="ml-2 text-gray-700">Improved focus</span>
               </label>
 
               <label className="mt-3 inline-flex items-center">
@@ -86,7 +89,7 @@ export const QuestionModule: React.FC = () => {
                   className="form-radio h-5 w-5 text-red-600"
                   checked={true}
                 />
-                <span className="ml-2 text-gray-700">label</span>
+                <span className="ml-2 text-gray-700">Emotional well-being</span>
               </label>
 
               <label className="mt-3 inline-flex items-center">
@@ -95,7 +98,9 @@ export const QuestionModule: React.FC = () => {
                   className="form-radio h-5 w-5 text-orange-600"
                   checked={false}
                 />
-                <span className="ml-2 text-gray-700">label</span>
+                <span className="ml-2 text-gray-700">
+                  Inability to function effectively
+                </span>
               </label>
 
               <label className="mt-3 inline-flex items-center">
@@ -104,7 +109,9 @@ export const QuestionModule: React.FC = () => {
                   className="form-radio h-5 w-5 text-yellow-600"
                   checked={false}
                 />
-                <span className="ml-2 text-gray-700">label</span>
+                <span className="ml-2 text-gray-700">
+                  Physical health benefits
+                </span>
               </label>
             </div>
           </div>

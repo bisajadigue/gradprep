@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-html-link-for-pages */
 import Lottie from "lottie-react";
 import Value from "../../../../public/assets/lottie/value.json";
 import Value1 from "../../../../public/assets/lottie/value1.json";
@@ -5,6 +6,7 @@ import Value2 from "../../../../public/assets/lottie/value2.json";
 import Value3 from "../../../../public/assets/lottie/value3.json";
 import Value4 from "../../../../public/assets/lottie/value4.json";
 import { HistoryCard } from "@/components/elements/Cards/HistoryCard";
+import Link from "next/link";
 
 import Test from "../../../../public/assets/lottie/test.json";
 import { TestCard } from "@/components/elements/Cards/TestCard";
@@ -50,14 +52,14 @@ export const TestModule: React.FC = () => {
             experiences: [
               {
                 organization: "Universitas Indonesia",
-                title: "Dosen",
+                title: "S1",
                 startPeriod: "2022-01-01",
                 endPeriod: "2023-01-01",
               },
             ],
             bio: "lover",
             education: "Computer Science",
-            expertise: "Information Retrieval",
+            expertise: "Universitas Indonesia",
           }}
         />
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
@@ -65,8 +67,8 @@ export const TestModule: React.FC = () => {
             className="w-full"
             data={{
               userId: "12312321",
-              name: "wee",
-              email: "wee@mail.com",
+              name: "IELTS",
+              email: "6.5",
               ppUrl: "/indo.svg",
               cvUrl: "",
               experiences: [
@@ -87,8 +89,8 @@ export const TestModule: React.FC = () => {
             className="w-full"
             data={{
               userId: "12312321",
-              name: "wee",
-              email: "wee@mail.com",
+              name: "SAT",
+              email: "900",
               ppUrl: "/geo.svg",
               cvUrl: "",
               experiences: [
@@ -108,8 +110,8 @@ export const TestModule: React.FC = () => {
             className="w-full"
             data={{
               userId: "12312321",
-              name: "wee",
-              email: "wee@mail.com",
+              name: "GMAT",
+              email: "500",
               ppUrl: "/bio.svg",
               cvUrl: "",
               experiences: [
@@ -129,8 +131,8 @@ export const TestModule: React.FC = () => {
             className="w-full"
             data={{
               userId: "12312321",
-              name: "wee",
-              email: "wee@mail.com",
+              name: "TOEFL",
+              email: "600",
               ppUrl: "/psiko.svg",
               cvUrl: "",
               experiences: [
@@ -235,18 +237,19 @@ export const TestModule: React.FC = () => {
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                GMAT
+                IELTS Speaking
               </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
+              Peserta akan diberikan kartu topik dan diberikan satu menit untuk
+              mempersiapkan pidato singkat. Setelah itu, mereka harus berbicara
+              selama 1-2 menit tentang topik tersebut.
             </p>
-            <a
-              href="#"
+            <Link
               className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              href={"/tests/1"}
             >
-              Read more
+              Ikuti tes
               <svg
                 className="ms-2 h-3.5 w-3.5 rtl:rotate-180"
                 aria-hidden="true"
@@ -262,7 +265,7 @@ export const TestModule: React.FC = () => {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -279,18 +282,19 @@ export const TestModule: React.FC = () => {
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                GMAT
+                IELTS Writing
               </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
+              Peserta akan diminta untuk menulis esai argumentatif mengenai
+              topik umum. Mereka diharapkan untuk menyusun argumen, memberikan
+              pandangan, dan mendukungnya dengan contoh atau bukti.
             </p>
-            <a
-              href="#"
+            <Link
               className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              href={"/tests/1"}
             >
-              Read more
+              Ikuti tes
               <svg
                 className="ms-2 h-3.5 w-3.5 rtl:rotate-180"
                 aria-hidden="true"
@@ -306,7 +310,7 @@ export const TestModule: React.FC = () => {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -323,18 +327,19 @@ export const TestModule: React.FC = () => {
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                GMAT
+                IELTS Listening
               </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
+              Peserta mendengarkan percakapan kelompok dan menjawab pertanyaan
+              tentang topik tersebut dan Peserta mendengarkan percakapan
+              sehari-hari dan menjawab pertanyaan-pertanyaan singkat.
             </p>
-            <a
-              href="#"
+            <Link
               className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              href={"/tests/1"}
             >
-              Read more
+              Ikuti tes
               <svg
                 className="ms-2 h-3.5 w-3.5 rtl:rotate-180"
                 aria-hidden="true"
@@ -350,7 +355,7 @@ export const TestModule: React.FC = () => {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -370,18 +375,18 @@ export const TestModule: React.FC = () => {
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                GMAT
+                SAT Reasoning Test
               </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
+              Tes yang bertujuan menguji kemampuan pelajar dalam membaca,
+              menulis dan matematika.
             </p>
-            <a
-              href="#"
+            <Link
               className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              href={"/tests/1"}
             >
-              Read more
+              Ikuti tes
               <svg
                 className="ms-2 h-3.5 w-3.5 rtl:rotate-180"
                 aria-hidden="true"
@@ -397,7 +402,7 @@ export const TestModule: React.FC = () => {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
@@ -413,18 +418,18 @@ export const TestModule: React.FC = () => {
           <div className="p-5">
             <a href="#">
               <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                GMAT
+                SAT Subject Test
               </h5>
             </a>
             <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
+              Tes yang bertujuan menguji keterampilan pelajar dalam
+              bidang-bidang studi tertentu.
             </p>
-            <a
-              href="#"
+            <Link
               className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              href={"/tests/1"}
             >
-              Read more
+              Ikuti tes
               <svg
                 className="ms-2 h-3.5 w-3.5 rtl:rotate-180"
                 aria-hidden="true"
@@ -440,50 +445,7 @@ export const TestModule: React.FC = () => {
                   d="M1 5h12m0 0L9 1m4 4L9 9"
                 />
               </svg>
-            </a>
-          </div>
-        </div>
-        <div className="max-w-sm rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-gray-800">
-          <a href="#">
-            <Image
-              src={"/indo.svg"}
-              alt={"wee"}
-              width={260}
-              height={260}
-              className="mr-4 h-[300px] w-[420px] rounded-[35px] object-cover p-5 group-hover:scale-105"
-            />
-          </a>
-          <div className="p-5">
-            <a href="#">
-              <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-                GMAT
-              </h5>
-            </a>
-            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-              Here are the biggest enterprise technology acquisitions of 2021 so
-              far, in reverse chronological order.
-            </p>
-            <a
-              href="#"
-              className="inline-flex items-center rounded-lg bg-blue-700 px-3 py-2 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Read more
-              <svg
-                className="ms-2 h-3.5 w-3.5 rtl:rotate-180"
-                aria-hidden="true"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 14 10"
-              >
-                <path
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M1 5h12m0 0L9 1m4 4L9 9"
-                />
-              </svg>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
