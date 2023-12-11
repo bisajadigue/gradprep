@@ -28,6 +28,7 @@
     "lottie-react": "^2.4.0",
     "next": "^13.4.19",
     "next-auth": "^4.23.0",
+    "podcast-api": "^2.0.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1",

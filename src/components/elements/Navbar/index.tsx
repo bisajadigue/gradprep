@@ -55,6 +55,12 @@ export const CustomNavbar: React.FC<NavbarProps> = () => {
           >
             Find a Mentor
           </Link>
+          <Link
+            href={"/podcasts"}
+            className="my-auto text-primary drop-shadow-lg"
+          >
+            Daily Scholarship Podcast
+          </Link>
         </div>
         <div className="relative my-auto inline-flex h-fit">
           {sessionData ? (
