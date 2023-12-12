@@ -35,6 +35,7 @@ export interface IMentorNew extends User {
   mentor: {
     experiences: IExperience[];
     expertise: string;
+    calendlyUrl: string
   };
 }
 

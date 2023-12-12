@@ -11,6 +11,7 @@ import Image from "next/image";
 import { type IMentorNew } from "@/components/elements/Cards/MentorCard/interface";
 import { useSession } from "next-auth/react";
 import toast, { Toaster } from "react-hot-toast";
+import { dummy } from "..";
 
 export default function MentorDetailPage() {
   const router = useRouter();
@@ -18,11 +19,12 @@ export default function MentorDetailPage() {
 
   const fetchMentor = api.userData.getUserInformationById.useQuery({ id: id });
   const requestBooking = api.booking.booking.useMutation();
-  const [data, setData] = useState<IMentorNew | undefined>(undefined);
+  const [data, setData] = useState<IMentorNew | undefined>(dummy);
   const { data: sessionData } = useSession();
 
   useEffect(() => {
-    void setData(fetchMentor.data as IMentorNew);
+    // void setData(fetchMentor.data as IMentorNew);
+    // console.log(fetchMentor.data)
   }, [fetchMentor.data]);
 
   function request() {
@@ -33,8 +35,9 @@ export default function MentorDetailPage() {
     console.log(`requesting:` + JSON.stringify(body));
     requestBooking.mutate(body);
 
-    if (requestBooking.data) {
-      console.log(requestBooking.data);
+    if (requestBooking.data || requestBooking.isSuccess) {
+      toast.success("Booking made! Redirecting to Calendly...");
+      window.open(data?.mentor.calendlyUrl)
     }
     if (requestBooking.isError) {
       toast.error("Booking failed");
@@ -70,48 +73,51 @@ export default function MentorDetailPage() {
             </div>
             <div>
               <h2 className="">{data?.name}</h2>
-              {/* <p>{data?.mentor.experiences[0]?.title}</p> */}
-              <RiFile2Fill size={24} color="#0d0d0d" className="mt-2" />
+              <p>{data?.mentor.experiences[0]?.title}</p>
             </div>
           </div>
         </div>
         <div className="container mt-[10vh] flex w-full flex-col gap-8 md:flex-row">
           <div className="rounded-[15px] border border-gray-400 bg-gray-50 p-10 md:w-[70%]">
-            <p>TODO</p>
             <p className="font-bold">Bio</p>
             <p>{data?.bio}</p>
-            <hr className="my-3" />
-            <p className="font-bold">Experiences</p>
-            {/* {data?.experiences.map((exp, i) => (
-              <div key={i} className="ml-6">
-                <p>{exp.organization}</p>
+            {/* <hr className="my-3" /> */}
+            {/* <p className="font-bold">Experiences</p>
+            {data?.mentor.experiences.map((exp, i) => (
+              <div key={i} className="ml-6 flex">
+                <p className="font-medium">{exp.organization}</p>
+                <p>{" – "}</p>
                 <p>{exp.title}</p>
+                <p>({exp.startPeriod} - {exp.endPeriod})</p>
               </div>
             ))} */}
             <hr className="my-3" />
-            <p className="font-bold">Education</p>
+            <p className="font-bold">Education History</p>
             {data?.education.map((edu, i) => (
-              <div key={i} className="ml-6">
-                <p>{edu.school}</p>
-                <p>{edu.field}</p>
+              <div key={i} className="ml-6 flex">
+                <p className="font-medium">{edu.school}</p>
+                <p>{" – "}</p>
+                <p>{edu.degree}</p>
               </div>
             ))}
           </div>
           <div className="flex flex-col items-center gap-1 rounded-[15px] border border-gray-400 bg-gray-50 p-10 text-center md:w-[30%]">
             <p className="font-bold">Mentoring Topics</p>
             {/* <p>{data?.expertise}</p> */}
+            <p>Technology, Data Science, Sustainable Computing, Scholarships</p>
             <hr className="mt-8" />
             <Button
               variant={"primary"}
               size={"md"}
               onClick={() => {
-                request();
+                // request();
+                window.open(data?.mentor.calendlyUrl);
               }}
             >
               Request Session
             </Button>
             <p>
-              This mentor has completed <b>XX</b> sessions!
+              Mentor ini sudah menyelesaikan <b>2</b> session sebelumnya!
             </p>
           </div>
         </div>

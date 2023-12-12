@@ -26,10 +26,11 @@ export const MentorCard: React.FC<MentorCardProps> = ({ className, data }) => {
           <RiSuitcase2Fill />
           <p>{data.education[0]?.degree}</p>
         </div>
+        { data.mentor?.experiences && 
         <div className="flex items-center gap-x-2 font-light">
           <RiOpenArmFill />
           <p>{data.mentor.experiences[0]?.title}</p>
-        </div>
+        </div> }
         <Link
           className="mb-1 ml-auto mt-7 flex w-fit items-center"
           href={`/mentors/${data.id}`}
