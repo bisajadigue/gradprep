@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { z } from "zod";
 
 import {
@@ -22,7 +23,7 @@ export const eventRouter = createTRPCRouter({
       }),
     )
     .mutation(({ input, ctx }) => {
-      let eventData: any = {
+      const eventData: any = {
         title: input.title,
         type: input.type,
         funding: input.funding,

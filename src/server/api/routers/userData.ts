@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { z } from "zod";
 import {
   createTRPCRouter,
@@ -59,7 +60,7 @@ export const userDataRouter = createTRPCRouter({
       const currentUserId = ctx.session.user.id;
 
       // Separate user and mentor data
-      let userData: any = {
+      const userData: any = {
         bio: input.bio,
         role: input.role,
         cvUrl: input.cvUrl,
@@ -83,7 +84,7 @@ export const userDataRouter = createTRPCRouter({
         data: userData,
       });
 
-      let mentorData: any = {};
+      const mentorData: any = {};
 
       // If role is MENTOR, update or create Mentor data
       if (input.role === "MENTOR") {
@@ -142,7 +143,7 @@ export const userDataRouter = createTRPCRouter({
         }
       }
 
-      let studentData: any = {};
+      const studentData: any = {};
       if (input.role === "STUDENT") {
         await ctx.db.student.upsert({
           where: { userId: currentUserId },
