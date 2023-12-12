@@ -1,18 +1,60 @@
 import { SearchInput, MentorCard } from "@/components/elements";
+import { type IMentorNew } from "@/components/elements/Cards/MentorCard/interface";
 import { api } from "@/utils/api";
-import { type User } from "@prisma/client";
+import { UserRole, type User } from "@prisma/client";
 import Lottie from "lottie-react";
 import Head from "next/head";
 import Help from "public/assets/lottie/help.json";
 import { useState, useEffect } from "react";
 
+export const dummy: IMentorNew = {
+  education: [
+    {
+      id: "a",
+      userId: "abcdefg",
+      school: "University of Melbourne",
+      degree: "Information Tech. Ph.D.",
+      field: "Computer Science",
+    },
+    {
+      id: "a",
+      userId: "abcdefg",
+      school: "University of Polytech France",
+      degree: "Master of Information Tech.",
+      field: "Computer Science",
+    }
+  ],
+  mentor: {
+    experiences: [{
+      id: "ab",
+      mentorId: "abcdefg",
+      organization: "PT. Abda Jaya",
+      title: "Direktur Utama Abda Jaya",
+      startPeriod: "2022-01-30",
+      endPeriod: "2023-01-30",
+    }],
+    expertise: "Computer Science Ph.d",
+    calendlyUrl: "https://calendly.com/shawn-mny/30min?month=2023-07&date=2023-07-03"
+  },
+  id: "abcdefg",
+  name: "Nia Suni A.",
+  email: "b@mail.com",
+  emailVerified: new Date(),
+  image: "/assets/pictures/person-1.png",
+  bio: "Saya seorang ahli teknis.",
+  role: UserRole.MENTOR,
+  isOnboarded: true,
+  // expertise: "abc",
+}
+
 export default function MentorsHomePage() {
-  const fetchMentors = api.mentor.getAllMentor.useQuery();
-  const [data, setData] = useState<User[] | undefined>();
+  const fetchMentors = api.mentor.getAllMentor.useQuery({});
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [data, setData] = useState<any[] | undefined>();
 
   useEffect(() => {
     console.log(fetchMentors.data);
-    void setData(fetchMentors.data);
+    void setData(fetchMentors.data?.mentors);
   }, [fetchMentors.data]);
 
   return (
@@ -38,9 +80,11 @@ export default function MentorsHomePage() {
               className="max-w-[60%]"
             />
           </div>
-          <div className="container relative mx-auto grid min-h-[90vh] w-full grid-cols-2 gap-2 py-8 sm:grid-cols-3 lg:grid-cols-4">
+          <div className="container relative mx-auto grid min-h-[95vh] w-full grid-cols-2 gap-2 py-8 sm:grid-cols-3 lg:grid-cols-4">
             {data?.map((mentor, i) => <MentorCard key={i} data={mentor} />)}
-            {data?.map((mentor, i) => <MentorCard key={i} data={mentor} />)}
+            <MentorCard data={dummy} />
+            <MentorCard data={dummy} />
+            <MentorCard data={dummy} />
           </div>
         </div>
       </main>
