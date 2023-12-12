@@ -49,7 +49,7 @@ export const ProgramCard: React.FC<IProgram> = ({
             size={"md"}
           >
             <a
-              href="http://localhost:3000/programs/1"
+              href="https://gradprep.vercel.app/programs/1"
               className="hover:text-primary "
             >
               Lihat detail
